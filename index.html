@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CYO — W4 MCP Testing Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #FFC400;
+  --primary-dark: #D9A600;
+  --navy: #101827;
+  --blue: #233F9D;
+  --white: #FFFFFF;
+  --bg-light: #F6F7F9;
+  --border: #E5E7EB;
+  --text-primary: #111827;
+  --text-secondary: #6B7280;
+  --muted: #9CA3AF;
+  --danger: #EF4444;
+  --success: #22C55E;
+  --warning-bg: #FFFBEB;
+  --warning-border: #FCD34D;
+  --shadow-sm: 0 2px 8px rgba(17,24,39,0.06);
+  --shadow-md: 0 4px 16px rgba(17,24,39,0.10);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+body {
+  font-family: 'Be Vietnam Pro', Arial, sans-serif;
+  background: var(--white);
+  color: var(--text-primary);
+  font-size: 16px;
+  line-height: 26px;
+}
+
+/* ── Header ── */
+.header {
+  height: 56px;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--navy);
+  text-decoration: none;
+}
+.logo-mark {
+  width: 32px;
+  height: 32px;
+  background: var(--primary);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--navy);
+}
+.header-badge {
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* ── Hero ── */
+.hero {
+  background: var(--navy);
+  padding: 56px 24px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 240px; height: 240px;
+  background: rgba(255,196,0,0.08);
+  border-radius: 50%;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; left: -30px;
+  width: 180px; height: 180px;
+  background: rgba(35,63,157,0.3);
+  border-radius: 50%;
+}
+.hero-inner {max-width:720px;margin:0 auto;position:relative;z-index:1}
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,196,0,0.15);
+  border: 1px solid rgba(255,196,0,0.3);
+  border-radius: 999px;
+  padding: 4px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.hero-dot {width:6px;height:6px;border-radius:50%;background:var(--primary);animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.hero h1 {
+  font-size: 36px;
+  line-height: 46px;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+.hero h1 span {color: var(--primary)}
+.hero p {
+  font-size: 16px;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 32px;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.hero-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.6);
+}
+.hero-meta-item strong {color: var(--white);font-weight: 600}
+.hero-divider {width:1px;height:16px;background:rgba(255,255,255,0.15)}
+
+/* ── Warning Banner ── */
+.warning-banner {
+  background: var(--warning-bg);
+  border-left: 4px solid #F59E0B;
+  padding: 16px 24px;
+  max-width: 1200px;
+  margin: 24px auto;
+  border-radius: 0 8px 8px 0;
+}
+.warning-banner-inner {display:flex;gap:12px;align-items:flex-start}
+.warning-icon {font-size: 20px;flex-shrink:0;margin-top:1px}
+.warning-title {font-size: 14px;font-weight: 700;color: #92400E;margin-bottom: 4px}
+.warning-body {font-size: 13px;color: #78350F;line-height: 21px}
+.warning-body code {background: rgba(146,64,14,0.1);padding: 1px 5px;border-radius: 4px;font-family: 'JetBrains Mono', monospace;font-size: 12px}
+
+/* ── Layout ── */
+.container {max-width:1200px;margin:0 auto;padding:0 24px}
+.main {padding: 40px 0 64px}
+
+/* ── Section ── */
+.section {margin-bottom: 48px}
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.section-number {
+  width: 32px;height: 32px;
+  border-radius: 8px;
+  background: var(--primary);
+  color: var(--navy);
+  font-size: 14px;
+  font-weight: 800;
+  display: flex;align-items:center;justify-content:center;
+  flex-shrink: 0;
+}
+.section-title {
+  font-size: 22px;
+  line-height: 32px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.section-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+/* ── Card ── */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+.card-muted {
+  background: var(--bg-light);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+/* ── Guide Cards ── */
+.guide-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 20px;
+}
+.guide-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+.guide-card:hover {box-shadow: var(--shadow-md)}
+.guide-card-header {
+  background: var(--navy);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.guide-card-icon {
+  width: 36px;height: 36px;
+  border-radius: 8px;
+  background: rgba(255,196,0,0.15);
+  border: 1px solid rgba(255,196,0,0.25);
+  display: flex;align-items:center;justify-content:center;
+  font-size: 18px;
+}
+.guide-card-header h3 {
+  font-size: 15px;font-weight: 700;color: var(--white);
+}
+.guide-card-header p {font-size: 12px;color: rgba(255,255,255,0.5);margin-top:2px}
+.guide-card-body {padding: 20px}
+.step-list {list-style: none}
+.step-item {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+.step-item:last-child {border-bottom: none;padding-bottom: 0}
+.step-num {
+  width: 22px;height: 22px;
+  border-radius: 50%;
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  font-size: 11px;font-weight: 700;
+  color: var(--text-secondary);
+  display: flex;align-items:center;justify-content:center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.step-content {flex: 1}
+.step-text {font-size: 14px;color: var(--text-primary);line-height: 22px;font-weight: 500}
+.step-note {font-size: 12px;color: var(--muted);margin-top: 2px;line-height: 18px}
+.code-block {
+  background: var(--navy);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-top: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #A5B4FC;
+  line-height: 20px;
+  overflow-x: auto;
+}
+.code-block .cmd {color: var(--primary)}
+.code-block .comment {color: rgba(255,255,255,0.3)}
+
+/* ── KPI Table ── */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.kpi-card {
+  background: var(--bg-light);
+  border-radius: 12px;
+  padding: 16px 20px;
+  border-left: 3px solid var(--primary);
+}
+.kpi-label {font-size: 12px;color: var(--text-secondary);font-weight: 600;text-transform: uppercase;letter-spacing: 0.5px;margin-bottom: 6px}
+.kpi-value {font-size: 22px;font-weight: 800;color: var(--text-primary);line-height: 1}
+.kpi-target {font-size: 12px;color: var(--muted);margin-top: 4px}
+
+.measure-table {width: 100%;border-collapse: collapse;margin-top: 4px}
+.measure-table th {
+  font-size: 12px;font-weight: 700;color: var(--text-secondary);
+  text-transform: uppercase;letter-spacing: 0.5px;
+  padding: 10px 14px;text-align: left;
+  background: var(--bg-light);
+  border-bottom: 1px solid var(--border);
+}
+.measure-table th:first-child {border-radius: 8px 0 0 0}
+.measure-table th:last-child {border-radius: 0 8px 0 0}
+.measure-table td {
+  font-size: 14px;color: var(--text-primary);
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 21px;
+}
+.measure-table tr:last-child td {border-bottom: none}
+.measure-table tr:hover td {background: var(--bg-light)}
+.badge {
+  display: inline-flex;align-items:center;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 11px;font-weight: 600;
+  white-space: nowrap;
+}
+.badge-qual {background: #EFF6FF;color: #1D4ED8;border: 1px solid #BFDBFE}
+.badge-quant {background: #F0FDF4;color: #15803D;border: 1px solid #BBF7D0}
+.badge-perf {background: #FFF7ED;color: #C2410C;border: 1px solid #FED7AA}
+.badge-cost {background: #FDF4FF;color: #7E22CE;border: 1px solid #E9D5FF}
+
+/* ── Budget ── */
+.budget-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+@media(max-width: 640px){.budget-grid{grid-template-columns:1fr}}
+.budget-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.budget-card-head {
+  padding: 14px 20px;
+  background: var(--bg-light);
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;font-weight: 700;color: var(--text-primary);
+  display: flex;justify-content:space-between;align-items:center;
+}
+.budget-card-body {padding: 16px 20px}
+.budget-row {
+  display: flex;justify-content:space-between;align-items:center;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--border);
+  font-size: 14px;
+}
+.budget-row:last-child {border-bottom: none;font-weight: 700;padding-top: 12px;color: var(--text-primary)}
+.budget-label {color: var(--text-secondary)}
+.budget-value {font-weight: 600;color: var(--text-primary)}
+
+.risk-box {
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;gap: 14px;
+}
+.risk-icon {font-size: 24px;flex-shrink:0}
+.risk-title {font-size: 15px;font-weight: 700;color: #991B1B;margin-bottom: 8px}
+.risk-body {font-size: 14px;color: #7F1D1D;line-height: 22px}
+.risk-fix {
+  display: inline-flex;align-items:center;gap: 6px;
+  margin-top: 10px;
+  background: #991B1B;
+  color: var(--white);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12px;font-weight: 600;
+  text-decoration: none;
+}
+
+/* ── Timeline ── */
+.timeline {position: relative;padding-left: 28px}
+.timeline::before {
+  content:'';position:absolute;left:9px;top:8px;bottom:8px;
+  width:2px;background: var(--border);
+}
+.tl-item {position:relative;margin-bottom:28px}
+.tl-item:last-child{margin-bottom:0}
+.tl-dot {
+  position:absolute;left:-28px;top:4px;
+  width:18px;height:18px;border-radius:50%;
+  background: var(--white);border: 2px solid var(--primary);
+  display:flex;align-items:center;justify-content:center;
+}
+.tl-dot-inner {width:8px;height:8px;border-radius:50%;background:var(--primary)}
+.tl-date {font-size: 12px;font-weight: 600;color: var(--blue);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.tl-title {font-size: 15px;font-weight: 700;color: var(--text-primary);margin-bottom:4px}
+.tl-body {font-size: 14px;color: var(--text-secondary);line-height:22px}
+
+/* ── Footer ── */
+.footer {
+  background: var(--navy);
+  color: var(--white);
+  padding: 40px 24px 28px;
+}
+.footer-inner {max-width:1200px;margin:0 auto}
+.footer-top {
+  display: flex;justify-content:space-between;align-items:flex-start;
+  gap: 24px;flex-wrap:wrap;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 20px;
+}
+.footer-brand {font-size: 18px;font-weight: 800;color: var(--white)}
+.footer-brand span {color: var(--primary)}
+.footer-meta {font-size: 13px;color: rgba(255,255,255,0.4);margin-top:4px}
+.footer-tags {display:flex;gap:8px;flex-wrap:wrap}
+.footer-tag {
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  font-size: 11px;font-weight: 500;color: rgba(255,255,255,0.5);
+}
+.footer-bottom {font-size: 13px;color: rgba(255,255,255,0.3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+/* ── Divider ── */
+hr.divider {border:none;border-top:1px solid var(--border);margin: 40px 0}
+
+/* ── Responsive ── */
+@media(max-width:768px){
+  .hero h1{font-size:28px;line-height:38px}
+  .guide-grid{grid-template-columns:1fr}
+  .kpi-grid{grid-template-columns:1fr 1fr}
+  .hero-divider{display:none}
+}
+@media(max-width:480px){
+  .kpi-grid{grid-template-columns:1fr}
+  .measure-table{font-size:13px}
+  .measure-table th,.measure-table td{padding:9px 10px}
+}
+</style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<header class="header">
+  <a href="#" class="header-logo">
+    <div class="logo-mark">CYO</div>
+    MCP Testing Plan
+  </a>
+  <span class="header-badge">W4 · Tháng 5 / 2026</span>
+</header>
+
+<!-- ── Hero ── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">
+      <span class="hero-dot"></span>
+      Sprint W4 — MCP Pilot Testing
+    </div>
+    <h1>Kế hoạch Testing <span>MCP</span><br>Tuần W4</h1>
+    <p>Hướng dẫn cài đặt, KPI đo lường và dự trù kinh phí cho giai đoạn pilot CYO — Claude + BigQuery qua MCP Protocol.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">📅 <strong>Tuần W4</strong> · 04 – 08/05/2026</div>
+      <div class="hero-divider"></div>
+      <div class="hero-meta-item">👥 <strong>Team MKT + BI + Omega</strong></div>
+      <div class="hero-divider"></div>
+      <div class="hero-meta-item">🎯 <strong>MVP Draft</strong> → 30/05/2026</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Main ── -->
+<main class="main">
+<div class="container">
+
+  <!-- SECTION 1: Setup Guideline -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-number">1</div>
+      <div>
+        <div class="section-title">Guideline Cài Đặt</div>
+        <div class="section-desc">Hướng dẫn step-by-step cho team thực hiện</div>
+      </div>
+    </div>
+
+    <!-- Prerequisite banner -->
+    <div style="background:var(--bg-light);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:flex-start;gap:12px;">
+      <span style="font-size:18px;flex-shrink:0">📋</span>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:4px">Thứ tự thực hiện đúng: Node.js trước → MCP Config → Skill</div>
+        <div style="font-size:13px;color:var(--text-secondary);line-height:20px">Phải cài Node.js xong trước mới chạy được MCP server. Sau khi MCP hoạt động mới cần setup Skill trong Claude.</div>
+      </div>
+    </div>
+
+    <div class="guide-grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+
+      <!-- Card 1: Node.js (làm trước) -->
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <div class="guide-card-icon">🟢</div>
+          <div>
+            <h3>Bước 1 — Cài Node.js</h3>
+            <p>Runtime môi trường · Làm trước tiên</p>
+          </div>
+        </div>
+        <div class="guide-card-body">
+          <ul class="step-list">
+            <li class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <div class="step-text">Vào link bên dưới, tải file <strong>.msi</strong> (Windows) hoặc <strong>.pkg</strong> (Mac)</div>
+                <div class="step-note"><a href="https://nodejs.org/en/download" target="_blank" style="color:var(--blue);font-weight:600;font-size:12px;text-decoration:underline">→ nodejs.org/en/download</a> &nbsp;· Chọn mục <strong>LTS</strong></div>
+              </div>
+            </li>
+            <li class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <div class="step-text">Mở file vừa tải, nhấn <strong>Next</strong> liên tục đến khi xong</div>
+                <div class="step-note">Không cần thay đổi gì — giữ mọi tùy chọn mặc định</div>
+              </div>
+            </li>
+            <li class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <div class="step-text">Báo IT biết đã cài xong — IT sẽ hỗ trợ các bước tiếp theo</div>
+                <div class="step-note">IT sẽ setup MCP server và kết nối với Claude Desktop cho bạn</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Card 2: MCP Config trong Claude Desktop -->
+      <div class="guide-card">
+        <div class="guide-card-header">
+          <div class="guide-card-icon">⚙️</div>
+          <div>
+            <h3>Bước 2 — Kết nối MCP vào Claude Desktop</h3>
+            <p>Edit config JSON · Sau khi Node.js chạy xong</p>
+          </div>
+        </div>
+        <div class="guide-card-body">
+          <ul class="step-list">
+            <li class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <div class="step-text">Mở Claude Desktop → nhấn vào tên mình (góc trên trái) → <strong>Settings</strong></div>
+                <div class="step-note">Cần dùng Claude Desktop app (tải tại claude.ai/download), không phải browser</div>
+              </div>
+            </li>
+            <li class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <div class="step-text">Vào tab <strong>Developer</strong> → nhấn <strong>Edit Config</strong></div>
+                <div class="step-note">File config tự động mở bằng Notepad / TextEdit — đây là file JSON thuần text</div>
+              </div>
+            </li>
+            <li class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <div class="step-text">Copy đoạn JSON bên dưới, paste vào file (thay thế toàn bộ nội dung cũ nếu có)</div>
+                <div class="code-block" style="font-size:11px;line-height:18px">{<br>&nbsp;&nbsp;<span class="cmd">"mcpServers"</span>: {<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmd">"cyo-cdp"</span>: {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmd">"command"</span>: <span style="color:#86efac">"node"</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmd">"args"</span>: [<span style="color:#86efac">"/path/to/cyo-mcp-server/index.js"</span>],<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmd">"env"</span>: {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmd">"BQ_PROJECT_ID"</span>: <span style="color:#86efac">"yody-prod"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;}<br>}</div>
+                <div class="step-note" style="margin-top:6px">⚠️ Thay <code style="font-family:monospace;font-size:11px">/path/to/</code> bằng đường dẫn thực tế trên máy của bạn đến folder repo vừa clone ở Bước 1</div>
+              </div>
+            </li>
+            <li class="step-item">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <div class="step-text">Lưu file → <strong>Quit hoàn toàn</strong> Claude Desktop rồi mở lại</div>
+                <div class="step-note">Phải quit hoàn toàn (Cmd+Q / Alt+F4), không chỉ đóng cửa sổ — Claude Desktop cần restart để load config mới</div>
+              </div>
+            </li>
+            <li class="step-item">
+              <div class="step-num">5</div>
+              <div class="step-content">
+                <div class="step-text">Mở lại Claude Desktop → kiểm tra icon 🔌 (MCP connected) xuất hiện trong chat</div>
+                <div class="step-note">Gõ thử: <em>"Chạy health check MCP server"</em> — Claude gọi được tool là thành công ✓</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Card 3: Cài Skill -->
+      <div class="guide-card">
+        <div class="guide-card-header" style="background:linear-gradient(135deg,#101827,#1a2d4a)">
+          <div class="guide-card-icon" style="background:rgba(35,63,157,0.3);border-color:rgba(35,63,157,0.5)">✨</div>
+          <div>
+            <h3>Bước 3 — Cài Skill trong Claude</h3>
+            <p>Custom instructions · Tối ưu output cho CYO context</p>
+          </div>
+        </div>
+        <div class="guide-card-body">
+          <div style="background:var(--bg-light);border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:13px;color:var(--text-secondary);line-height:20px">
+            <strong style="color:var(--text-primary)">Skill là gì?</strong> Là bộ hướng dẫn giúp Claude hiểu đúng context CYO ngay từ đầu — IT chuẩn bị sẵn file <code style="font-family:monospace;background:#E5E7EB;padding:1px 5px;border-radius:3px">.zip</code>, MKT chỉ cần import vào là dùng được.
+          </div>
+          <ul class="step-list">
+            <li class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <div class="step-text">Nhận file <strong>CYO-skill.zip</strong> từ IT (gửi qua Slack / Drive)</div>
+                <div class="step-note">Lưu file về máy, không cần giải nén</div>
+              </div>
+            </li>
+            <li class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <div class="step-text">Mở Claude Desktop → vào <strong>Settings</strong></div>
+              </div>
+            </li>
+            <li class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <div class="step-text">Chọn mục <strong>Connectors</strong> → nhấn <strong>Customize</strong></div>
+              </div>
+            </li>
+            <li class="step-item">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <div class="step-text">Nhấn dấu <strong>(+)</strong> → chọn <strong>Add Skill</strong> → chọn file <strong>CYO-skill.zip</strong> vừa nhận</div>
+              </div>
+            </li>
+            <li class="step-item">
+              <div class="step-num">5</div>
+              <div class="step-content">
+                <div class="step-text">Skill xuất hiện trong danh sách → nhấn <strong>Enable</strong> là xong</div>
+                <div class="step-note">Thử ngay: <em>"Top sản phẩm bán chạy tháng 4?"</em> — nếu Claude trả lời được là thành công ✓</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- SECTION 2: KPI -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-number">2</div>
+      <div>
+        <div class="section-title">KPI Đo Lường & Cách Đo</div>
+        <div class="section-desc">3 nhóm KPI chính — Qualitative, Performance, Cost</div>
+      </div>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Feedback MKT</div>
+        <div class="kpi-value">≥ 10 feedback</div>
+        <div class="kpi-target">Số lượng phản hồi có mô tả tối thiểu trong W4</div>
+      </div>
+      <div class="kpi-card" style="border-left-color: var(--blue)">
+        <div class="kpi-label">Query Latency</div>
+        <div class="kpi-value">&lt; 5s</div>
+        <div class="kpi-target">P95 end-to-end response time</div>
+      </div>
+      <div class="kpi-card" style="border-left-color: var(--success)">
+        <div class="kpi-label">MCP Response</div>
+        <div class="kpi-value">&lt; 5s</div>
+        <div class="kpi-target">Thời gian MCP trả data về Claude (P95)</div>
+      </div>
+      <div class="kpi-card" style="border-left-color: #7C3AED">
+        <div class="kpi-label">Token / Query</div>
+        <div class="kpi-value">≤ 3K</div>
+        <div class="kpi-target">Token budget trung bình mỗi query</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <table class="measure-table">
+        <thead>
+          <tr>
+            <th style="width:22%">KPI</th>
+            <th style="width:12%">Loại</th>
+            <th style="width:26%">Công cụ đo</th>
+            <th>Cách thực hiện</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Feedback team MKT</strong></td>
+            <td><span class="badge badge-quant">Quant + Qual</span></td>
+            <td>Google Form / Notion / Slack thread</td>
+            <td>Đếm số lượng feedback có nội dung mô tả (không tính "OK" / 1 từ). Mỗi feedback cần ghi rõ: query đã hỏi gì, Claude trả lời ra sao, vấn đề gặp phải (nếu có). PO tổng hợp cuối tuần theo 2 cột: <strong>Số lượng</strong> + <strong>Nhóm vấn đề</strong> (data sai / chậm / khó hiểu / khác).</td>
+          </tr>
+          <tr>
+            <td><strong>Query Latency (E2E)</strong></td>
+            <td><span class="badge badge-perf">Perf</span></td>
+            <td>Stopwatch / Chrome DevTools</td>
+            <td>Bấm giờ từ lúc gửi câu hỏi → nhận response đầy đủ. Ghi vào sheet: timestamp, query type, duration (ms).</td>
+          </tr>
+          <tr>
+            <td><strong>MCP Response Time</strong></td>
+            <td><span class="badge badge-perf">Perf</span></td>
+            <td>Server log / console.time()</td>
+            <td>Log thêm <code style="font-family:monospace;font-size:12px">console.time('mcp_query')</code> trong handler. Export log file cuối ngày.</td>
+          </tr>
+          <tr>
+            <td><strong>Token tiêu tốn</strong></td>
+            <td><span class="badge badge-cost">Cost</span></td>
+            <td>Anthropic Console → Usage</td>
+            <td>Vào console.anthropic.com → Usage tab → filter theo ngày. Ghi lại input tokens + output tokens mỗi ngày testing.</td>
+          </tr>
+          <tr>
+            <td><strong>Answer Accuracy</strong></td>
+            <td><span class="badge badge-qual">Qual</span></td>
+            <td>Manual spot-check vs BigQuery</td>
+            <td>Chọn ngẫu nhiên 5 queries/ngày, chạy query SQL thủ công trên BQ để verify số liệu AI trả về có đúng không.</td>
+          </tr>
+          <tr>
+            <td><strong>Error Rate</strong></td>
+            <td><span class="badge badge-quant">Quant</span></td>
+            <td>Server error log</td>
+            <td>Đếm số lần MCP trả error / tổng số queries. Target: &lt; 5% error rate trong W4.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- SECTION 3: Budget -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-number">3</div>
+      <div>
+        <div class="section-title">Kinh Phí Dự Trù</div>
+        <div class="section-desc">Đề xuất điều chỉnh so với plan gốc</div>
+      </div>
+    </div>
+
+    <div class="budget-grid">
+      <div>
+        <div class="budget-card" style="margin-bottom:20px">
+          <div class="budget-card-head">
+            <span>❌ Plan Gốc (Cần Sửa)</span>
+            <span style="color:var(--danger);font-size:12px">Vi phạm ToS</span>
+          </div>
+          <div class="budget-card-body">
+            <div class="budget-row">
+              <span class="budget-label">1 Claude Pro shared</span>
+              <span class="budget-value">$20/tháng</span>
+            </div>
+            <div class="budget-row">
+              <span class="budget-label">6 người dùng chung</span>
+              <span class="budget-value" style="color:var(--danger)">⚠️ Không hợp lệ</span>
+            </div>
+            <div class="budget-row">
+              <span class="budget-label">Token cost (ước tính)</span>
+              <span class="budget-value">Không track được</span>
+            </div>
+            <div class="budget-row">
+              <span class="budget-label">Tổng</span>
+              <span class="budget-value">$20/tháng</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="risk-box">
+          <div class="risk-icon">🛑</div>
+          <div>
+            <div class="risk-title">Rủi ro nếu giữ plan gốc</div>
+            <div class="risk-body">Anthropic phát hiện shared login → suspend tài khoản → mất toàn bộ conversation history + gián đoạn testing. Không track được token cost per user → không thể scale budget khi go-live.</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="budget-card">
+          <div class="budget-card-head">
+            <span>✅ Plan Đề Xuất (2 Options)</span>
+            <span style="color:var(--success);font-size:12px">Compliant</span>
+          </div>
+          <div class="budget-card-body">
+            <p style="font-size:13px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;text-transform:uppercase;letter-spacing:.4px">Option A — Claude Team (Ưu tiên)</p>
+            <div class="budget-row">
+              <span class="budget-label">Claude Team Plan</span>
+              <span class="budget-value">$30/seat/tháng</span>
+            </div>
+            <div class="budget-row">
+              <span class="budget-label">2 seats (PO + MKT Lead)</span>
+              <span class="budget-value">$60/tháng</span>
+            </div>
+            <div class="budget-row">
+              <span class="budget-label">Token overage buffer</span>
+              <span class="budget-value">$20/tháng</span>
+            </div>
+            <div class="budget-row">
+              <span class="budget-label">Tổng Option A</span>
+              <span class="budget-value">~$80/tháng</span>
+            </div>
+
+            <p style="font-size:13px;font-weight:700;color:var(--text-secondary);margin:16px 0 8px;text-transform:uppercase;letter-spacing:.4px">Option B — API Key (Khuyến nghị cho dev)</p>
+            <div class="budget-row">
+              <span class="budget-label">Anthropic API (pay-as-go)</span>
+              <span class="budget-value">~$0.003/1K tokens</span>
+            </div>
+            <div class="budget-row">
+              <span class="budget-label">Budget cap W4 (est. 500K tokens)</span>
+              <span class="budget-value">~$15–$25</span>
+            </div>
+            <div class="budget-row">
+              <span class="budget-label">Tổng Option B</span>
+              <span class="budget-value">~$25–$40/tháng</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- SECTION 4: Timeline -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-number">4</div>
+      <div>
+        <div class="section-title">Timeline W4 Testing</div>
+        <div class="section-desc">Gắn với lộ trình tổng thể dự án CYO</div>
+      </div>
+    </div>
+    <div class="card-muted">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+          <div class="tl-date">04–05/05 · Thứ 2–3</div>
+          <div class="tl-title">Setup & Smoke Test</div>
+          <div class="tl-body">Team Omega hoàn thiện khung MCP. Dev cài Node.js + kết nối BQ. PO + MKT cài Claude + thêm MCP endpoint. Chạy 5 test queries đơn giản.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+          <div class="tl-date">06–07/05 · Thứ 4–5</div>
+          <div class="tl-title">Structured Testing</div>
+          <div class="tl-body">MKT Exec thực hiện 20 queries theo danh sách use cases ưu tiên (UC1: demographic insights, UC5: product flow). Ghi log latency + tokens. Spot-check accuracy vs BigQuery.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+          <div class="tl-date">08/05 · Thứ 6</div>
+          <div class="tl-title">Retrospective & Report</div>
+          <div class="tl-body">Thu thập feedback form từ MKT. Tổng hợp KPI sheet. PO viết W4 Testing Report: pass/fail theo từng KPI, blockers, recommendations cho W5.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="border-color:var(--blue)"><div class="tl-dot-inner" style="background:var(--blue)"></div></div>
+          <div class="tl-date">30/05 · Milestone</div>
+          <div class="tl-title">🎯 MVP Draft Launch</div>
+          <div class="tl-body">Dựa trên kết quả W4, team BI hoàn thiện dataset chuẩn hóa. MVP có khả năng trả lời câu hỏi cơ bản về nhân khẩu học và hành vi mua sắm.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<!-- ── Footer ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">CYO · <span>YODY</span></div>
+        <div class="footer-meta">AI-native CDP Platform — Internal Document · Confidential</div>
+      </div>
+      <div class="footer-tags">
+        <span class="footer-tag">W4 Testing Plan</span>
+        <span class="footer-tag">MCP Protocol</span>
+        <span class="footer-tag">Phase 1 · Sprint 4</span>
+        <span class="footer-tag">Owner: PO Lãm</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>CYO SRD v1.2 · Cập nhật 22/05/2026</span>
+      <span>Team: PO · BI (Anh Bình) · Omega (Anh Thắng) · MKT</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
