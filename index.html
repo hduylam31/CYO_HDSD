@@ -3,745 +3,475 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CYO — W4 MCP Testing Plan</title>
+<title>CYO — W1/T6 MCP Testing Plan</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --primary: #FFC400;
-  --primary-dark: #D9A600;
-  --navy: #101827;
-  --blue: #233F9D;
+  --amber: #FFC400;
+  --amber-dim: rgba(255,196,0,0.12);
+  --navy: #0D1524;
+  --navy-2: #152035;
+  --navy-3: #1E2D47;
+  --blue: #2B4FBF;
+  --blue-dim: rgba(43,79,191,0.1);
   --white: #FFFFFF;
-  --bg-light: #F6F7F9;
-  --border: #E5E7EB;
-  --text-primary: #111827;
-  --text-secondary: #6B7280;
-  --muted: #9CA3AF;
-  --danger: #EF4444;
-  --success: #22C55E;
-  --warning-bg: #FFFBEB;
-  --warning-border: #FCD34D;
-  --shadow-sm: 0 2px 8px rgba(17,24,39,0.06);
-  --shadow-md: 0 4px 16px rgba(17,24,39,0.10);
+  --bg: #F5F6F8;
+  --border: rgba(0,0,0,0.07);
+  --border-strong: rgba(0,0,0,0.12);
+  --text: #0D1524;
+  --text-2: #4A5568;
+  --text-3: #8492A6;
+  --danger: #DC2626;
+  --danger-dim: rgba(220,38,38,0.08);
+  --success: #16A34A;
+  --success-dim: rgba(22,163,74,0.08);
+  --purple: #7C3AED;
+  --purple-dim: rgba(124,58,237,0.08);
+  --mono: 'DM Mono', monospace;
+  --sans: 'DM Sans', sans-serif;
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 16px;
 }
-
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
 
-body {
-  font-family: 'Be Vietnam Pro', Arial, sans-serif;
-  background: var(--white);
-  color: var(--text-primary);
-  font-size: 16px;
-  line-height: 26px;
-}
+/* Header */
+.header{height:52px;background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:100}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-mark{width:30px;height:30px;background:var(--amber);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--navy);font-family:var(--mono);letter-spacing:-0.5px}
+.logo-text{font-size:14px;font-weight:600;color:rgba(255,255,255,0.9)}
+.header-right{display:flex;align-items:center;gap:10px}
+.header-pill{padding:3px 12px;border-radius:99px;border:1px solid rgba(255,255,255,0.12);font-size:11px;font-weight:600;color:rgba(255,255,255,0.45);letter-spacing:0.5px;font-family:var(--mono);text-transform:uppercase}
+.header-status{display:flex;align-items:center;gap:6px;padding:3px 12px;border-radius:99px;background:rgba(255,196,0,0.12);border:1px solid rgba(255,196,0,0.2);font-size:11px;font-weight:600;color:var(--amber);letter-spacing:0.5px;font-family:var(--mono);text-transform:uppercase}
+.status-dot{width:5px;height:5px;border-radius:50%;background:var(--amber);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
 
-/* ── Header ── */
-.header {
-  height: 56px;
-  background: var(--white);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 24px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  box-shadow: var(--shadow-sm);
-}
-.header-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 800;
-  font-size: 18px;
-  color: var(--navy);
-  text-decoration: none;
-}
-.logo-mark {
-  width: 32px;
-  height: 32px;
-  background: var(--primary);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--navy);
-}
-.header-badge {
-  background: var(--bg-light);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 4px 14px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-}
+/* Hero */
+.hero{background:var(--navy);padding:52px 28px 44px;position:relative;overflow:hidden}
+.hero-grid-overlay{position:absolute;inset:0;background-image:linear-gradient(rgba(255,196,0,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,196,0,0.03) 1px,transparent 1px);background-size:48px 48px;pointer-events:none}
+.hero-glow{position:absolute;top:-80px;right:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(255,196,0,0.06) 0%,transparent 65%);pointer-events:none}
+.hero-inner{max-width:1140px;margin:0 auto;position:relative;z-index:1}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;font-weight:500;color:var(--amber);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:18px}
+.hero-eyebrow-line{width:24px;height:1px;background:var(--amber);opacity:0.5}
+.hero h1{font-size:clamp(28px,4vw,42px);font-weight:700;color:var(--white);line-height:1.15;letter-spacing:-0.5px;margin-bottom:14px}
+.hero h1 em{font-style:normal;color:var(--amber)}
+.hero-sub{font-size:15px;color:rgba(255,255,255,0.5);max-width:520px;line-height:1.7;margin-bottom:36px}
+.hero-stats{display:flex;gap:0;flex-wrap:wrap}
+.hero-stat{padding:14px 24px;border-right:1px solid rgba(255,255,255,0.06)}
+.hero-stat:first-child{padding-left:0}
+.hero-stat:last-child{border-right:none}
+.hero-stat-val{font-size:16px;font-weight:600;color:var(--white);margin-bottom:3px}
+.hero-stat-lbl{font-size:11px;color:rgba(255,255,255,0.35);font-family:var(--mono);letter-spacing:0.5px;text-transform:uppercase}
 
-/* ── Hero ── */
-.hero {
-  background: var(--navy);
-  padding: 56px 24px 48px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -40px; right: -40px;
-  width: 240px; height: 240px;
-  background: rgba(255,196,0,0.08);
-  border-radius: 50%;
-}
-.hero::after {
-  content: '';
-  position: absolute;
-  bottom: -60px; left: -30px;
-  width: 180px; height: 180px;
-  background: rgba(35,63,157,0.3);
-  border-radius: 50%;
-}
-.hero-inner {max-width:720px;margin:0 auto;position:relative;z-index:1}
-.hero-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(255,196,0,0.15);
-  border: 1px solid rgba(255,196,0,0.3);
-  border-radius: 999px;
-  padding: 4px 14px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--primary);
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
-.hero-dot {width:6px;height:6px;border-radius:50%;background:var(--primary);animation:pulse 1.8s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
-.hero h1 {
-  font-size: 36px;
-  line-height: 46px;
-  font-weight: 800;
-  color: var(--white);
-  margin-bottom: 12px;
-  letter-spacing: -0.5px;
-}
-.hero h1 span {color: var(--primary)}
-.hero p {
-  font-size: 16px;
-  color: rgba(255,255,255,0.65);
-  margin-bottom: 32px;
-  max-width: 560px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.hero-meta {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-.hero-meta-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: rgba(255,255,255,0.6);
-}
-.hero-meta-item strong {color: var(--white);font-weight: 600}
-.hero-divider {width:1px;height:16px;background:rgba(255,255,255,0.15)}
+/* Drive Banner */
+.drive-banner{max-width:1140px;margin:24px auto 0;padding:0 28px}
+.drive-inner{background:rgba(43,79,191,0.08);border:1px solid rgba(43,79,191,0.18);border-radius:var(--r-md);padding:14px 18px;display:flex;align-items:center;gap:14px}
+.drive-icon{width:36px;height:36px;background:var(--blue-dim);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.drive-text{flex:1;min-width:0}
+.drive-title{font-size:13px;font-weight:600;color:var(--blue);margin-bottom:2px}
+.drive-sub{font-size:12px;color:var(--text-3)}
+.drive-btn{flex-shrink:0;background:var(--blue);color:var(--white);font-size:12px;font-weight:600;padding:8px 16px;border-radius:var(--r-sm);text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;transition:opacity 0.15s}
+.drive-btn:hover{opacity:0.85}
 
-/* ── Warning Banner ── */
-.warning-banner {
-  background: var(--warning-bg);
-  border-left: 4px solid #F59E0B;
-  padding: 16px 24px;
-  max-width: 1200px;
-  margin: 24px auto;
-  border-radius: 0 8px 8px 0;
-}
-.warning-banner-inner {display:flex;gap:12px;align-items:flex-start}
-.warning-icon {font-size: 20px;flex-shrink:0;margin-top:1px}
-.warning-title {font-size: 14px;font-weight: 700;color: #92400E;margin-bottom: 4px}
-.warning-body {font-size: 13px;color: #78350F;line-height: 21px}
-.warning-body code {background: rgba(146,64,14,0.1);padding: 1px 5px;border-radius: 4px;font-family: 'JetBrains Mono', monospace;font-size: 12px}
+/* Layout */
+.container{max-width:1140px;margin:0 auto;padding:0 28px}
+.main{padding:40px 0 80px}
 
-/* ── Layout ── */
-.container {max-width:1200px;margin:0 auto;padding:0 24px}
-.main {padding: 40px 0 64px}
+/* Section */
+.section{margin-bottom:56px}
+.section-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:28px}
+.section-num{width:28px;height:28px;background:var(--navy);border-radius:var(--r-sm);font-family:var(--mono);font-size:12px;font-weight:500;color:var(--amber);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:3px}
+.section-title{font-size:20px;font-weight:700;color:var(--text);margin-bottom:3px}
+.section-sub{font-size:13px;color:var(--text-3)}
 
-/* ── Section ── */
-.section {margin-bottom: 48px}
-.section-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 24px;
-}
-.section-number {
-  width: 32px;height: 32px;
-  border-radius: 8px;
-  background: var(--primary);
-  color: var(--navy);
-  font-size: 14px;
-  font-weight: 800;
-  display: flex;align-items:center;justify-content:center;
-  flex-shrink: 0;
-}
-.section-title {
-  font-size: 22px;
-  line-height: 32px;
-  font-weight: 700;
-  color: var(--text-primary);
-}
-.section-desc {
-  font-size: 14px;
-  color: var(--text-secondary);
-  margin-top: 2px;
-}
+/* Prereq */
+.prereq{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--amber);border-radius:0 var(--r-md) var(--r-md) 0;padding:13px 18px;display:flex;align-items:flex-start;gap:12px;margin-bottom:24px}
+.prereq-icon{font-size:17px;flex-shrink:0;margin-top:1px}
+.prereq-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px}
+.prereq-body{font-size:12px;color:var(--text-2);line-height:1.7}
 
-/* ── Card ── */
-.card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 20px;
-}
-.card-muted {
-  background: var(--bg-light);
-  border-radius: 12px;
-  padding: 20px;
-}
+/* Guide Grid */
+.guide-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.guide-grid{grid-template-columns:1fr}}
+.guide-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;transition:border-color 0.18s,box-shadow 0.18s}
+.guide-card:hover{border-color:var(--border-strong);box-shadow:0 4px 20px rgba(0,0,0,0.06)}
+.guide-head{background:var(--navy);padding:16px 20px;display:flex;align-items:center;gap:12px}
+.guide-head-icon{width:34px;height:34px;border-radius:var(--r-sm);background:var(--amber-dim);border:1px solid rgba(255,196,0,0.2);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.guide-head-title{font-size:14px;font-weight:600;color:var(--white);margin-bottom:2px}
+.guide-head-sub{font-size:11px;color:rgba(255,255,255,0.4);font-family:var(--mono)}
+.guide-body{padding:20px}
+.step-list{list-style:none;display:flex;flex-direction:column;gap:0}
+.step-item{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--border)}
+.step-item:last-child{border-bottom:none;padding-bottom:0}
+.step-num{width:20px;height:20px;border-radius:50%;background:var(--bg);font-family:var(--mono);font-size:10px;font-weight:500;color:var(--text-3);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.step-text{font-size:13px;font-weight:500;color:var(--text);line-height:1.5}
+.step-note{font-size:12px;color:var(--text-3);margin-top:3px;line-height:1.5}
+.step-note a{color:var(--blue);font-weight:600;text-decoration:none}
+.step-note a:hover{text-decoration:underline}
+.code-block{background:var(--navy);border-radius:var(--r-sm);padding:12px 14px;margin-top:8px;font-family:var(--mono);font-size:11px;color:#93C5FD;line-height:1.7;overflow-x:auto}
+.code-block .key{color:var(--amber)}
+.code-block .val{color:#86EFAC}
+.skill-info{background:var(--bg);border-radius:var(--r-sm);padding:10px 12px;margin-bottom:14px;font-size:12px;color:var(--text-2);line-height:1.6}
 
-/* ── Guide Cards ── */
-.guide-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 20px;
-}
-.guide-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-  transition: box-shadow 0.2s;
-}
-.guide-card:hover {box-shadow: var(--shadow-md)}
-.guide-card-header {
-  background: var(--navy);
-  padding: 16px 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.guide-card-icon {
-  width: 36px;height: 36px;
-  border-radius: 8px;
-  background: rgba(255,196,0,0.15);
-  border: 1px solid rgba(255,196,0,0.25);
-  display: flex;align-items:center;justify-content:center;
-  font-size: 18px;
-}
-.guide-card-header h3 {
-  font-size: 15px;font-weight: 700;color: var(--white);
-}
-.guide-card-header p {font-size: 12px;color: rgba(255,255,255,0.5);margin-top:2px}
-.guide-card-body {padding: 20px}
-.step-list {list-style: none}
-.step-item {
-  display: flex;
-  gap: 12px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border);
-}
-.step-item:last-child {border-bottom: none;padding-bottom: 0}
-.step-num {
-  width: 22px;height: 22px;
-  border-radius: 50%;
-  background: var(--bg-light);
-  border: 1px solid var(--border);
-  font-size: 11px;font-weight: 700;
-  color: var(--text-secondary);
-  display: flex;align-items:center;justify-content:center;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-.step-content {flex: 1}
-.step-text {font-size: 14px;color: var(--text-primary);line-height: 22px;font-weight: 500}
-.step-note {font-size: 12px;color: var(--muted);margin-top: 2px;line-height: 18px}
-.code-block {
-  background: var(--navy);
-  border-radius: 8px;
-  padding: 14px 16px;
-  margin-top: 8px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  color: #A5B4FC;
-  line-height: 20px;
-  overflow-x: auto;
-}
-.code-block .cmd {color: var(--primary)}
-.code-block .comment {color: rgba(255,255,255,0.3)}
+/* KPI Row */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+@media(max-width:768px){.kpi-row{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.kpi-row{grid-template-columns:1fr}}
+.kpi-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-md);padding:16px 18px;position:relative;overflow:hidden}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.kpi-card.amber::before{background:var(--amber)}
+.kpi-card.blue::before{background:var(--blue)}
+.kpi-card.green::before{background:#16A34A}
+.kpi-card.purple::before{background:var(--purple)}
+.kpi-card.red::before{background:var(--danger)}
+.kpi-card.teal::before{background:#0D9488}
+.kpi-label{font-size:11px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:0.5px;font-family:var(--mono);margin-bottom:8px}
+.kpi-value{font-size:26px;font-weight:700;color:var(--text);line-height:1;margin-bottom:5px;letter-spacing:-0.5px}
+.kpi-target{font-size:12px;color:var(--text-3);line-height:1.4}
 
-/* ── KPI Table ── */
-.kpi-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 12px;
-  margin-bottom: 24px;
-}
-.kpi-card {
-  background: var(--bg-light);
-  border-radius: 12px;
-  padding: 16px 20px;
-  border-left: 3px solid var(--primary);
-}
-.kpi-label {font-size: 12px;color: var(--text-secondary);font-weight: 600;text-transform: uppercase;letter-spacing: 0.5px;margin-bottom: 6px}
-.kpi-value {font-size: 22px;font-weight: 800;color: var(--text-primary);line-height: 1}
-.kpi-target {font-size: 12px;color: var(--muted);margin-top: 4px}
+/* Score table */
+.score-wrap{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;margin-top:0}
+.score-table{width:100%;border-collapse:collapse}
+.score-table thead tr{background:var(--navy)}
+.score-table th{font-family:var(--mono);font-size:10px;font-weight:500;color:rgba(255,255,255,0.45);letter-spacing:1px;text-transform:uppercase;padding:11px 16px;text-align:left}
+.score-table td{font-size:13px;color:var(--text);padding:11px 16px;border-bottom:1px solid var(--border);vertical-align:middle;line-height:1.5}
+.score-table tr:last-child td{border-bottom:none}
+.score-table tbody tr:hover td{background:var(--bg)}
+.badge{display:inline-flex;align-items:center;padding:2px 9px;border-radius:99px;font-size:10px;font-weight:600;letter-spacing:0.3px;font-family:var(--mono);white-space:nowrap}
+.badge-qual{background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE}
+.badge-quant{background:#F0FDF4;color:#15803D;border:1px solid #BBF7D0}
+.badge-perf{background:#FFF7ED;color:#C2410C;border:1px solid #FED7AA}
+.badge-cost{background:#FAF5FF;color:#7E22CE;border:1px solid #E9D5FF}
+.badge-tool{background:#F0FFFE;color:#0D9488;border:1px solid #99F6E4;font-size:9px}
+.target-pill{display:inline-flex;align-items:center;font-family:var(--mono);font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;background:var(--bg)}
+.target-pill.pass{background:var(--success-dim);color:var(--success)}
+.target-pill.gate{background:var(--danger-dim);color:var(--danger)}
+.target-pill.warn{background:rgba(245,158,11,0.1);color:#92400E}
+.target-pill.info{background:var(--blue-dim);color:var(--blue)}
 
-.measure-table {width: 100%;border-collapse: collapse;margin-top: 4px}
-.measure-table th {
-  font-size: 12px;font-weight: 700;color: var(--text-secondary);
-  text-transform: uppercase;letter-spacing: 0.5px;
-  padding: 10px 14px;text-align: left;
-  background: var(--bg-light);
-  border-bottom: 1px solid var(--border);
-}
-.measure-table th:first-child {border-radius: 8px 0 0 0}
-.measure-table th:last-child {border-radius: 0 8px 0 0}
-.measure-table td {
-  font-size: 14px;color: var(--text-primary);
-  padding: 11px 14px;
-  border-bottom: 1px solid var(--border);
-  vertical-align: top;
-  line-height: 21px;
-}
-.measure-table tr:last-child td {border-bottom: none}
-.measure-table tr:hover td {background: var(--bg-light)}
-.badge {
-  display: inline-flex;align-items:center;
-  padding: 2px 10px;
-  border-radius: 999px;
-  font-size: 11px;font-weight: 600;
-  white-space: nowrap;
-}
-.badge-qual {background: #EFF6FF;color: #1D4ED8;border: 1px solid #BFDBFE}
-.badge-quant {background: #F0FDF4;color: #15803D;border: 1px solid #BBF7D0}
-.badge-perf {background: #FFF7ED;color: #C2410C;border: 1px solid #FED7AA}
-.badge-cost {background: #FDF4FF;color: #7E22CE;border: 1px solid #E9D5FF}
+/* Test Cases */
+.tc-grid{display:grid;gap:14px}
+.tc-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.tc-head{background:var(--navy);padding:13px 18px;display:flex;align-items:center;gap:12px}
+.tc-priority{width:22px;height:22px;border-radius:4px;background:rgba(255,196,0,0.15);border:1px solid rgba(255,196,0,0.25);font-family:var(--mono);font-size:10px;font-weight:700;color:var(--amber);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tc-priority.p2{background:rgba(43,79,191,0.2);border-color:rgba(43,79,191,0.3);color:#93C5FD}
+.tc-title{font-size:13px;font-weight:600;color:var(--white);flex:1}
+.tc-tag{font-size:10px;font-family:var(--mono);padding:2px 8px;border-radius:4px;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.45)}
+.tc-body{padding:16px 18px}
+.tc-queries{display:flex;flex-direction:column;gap:10px}
+.tc-query{background:var(--bg);border-radius:var(--r-sm);padding:10px 14px;border-left:3px solid var(--amber)}
+.tc-query.p2{border-left-color:var(--blue)}
+.tc-query-text{font-size:13px;color:var(--text);margin-bottom:4px;line-height:1.5}
+.tc-query-meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.tc-expected{font-size:11px;color:var(--text-3);flex:1;min-width:0}
+.tc-kpi-ref{font-family:var(--mono);font-size:10px;padding:1px 7px;border-radius:3px;background:var(--amber-dim);color:#92400E;flex-shrink:0}
 
-/* ── Budget ── */
-.budget-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-@media(max-width: 640px){.budget-grid{grid-template-columns:1fr}}
-.budget-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-}
-.budget-card-head {
-  padding: 14px 20px;
-  background: var(--bg-light);
-  border-bottom: 1px solid var(--border);
-  font-size: 13px;font-weight: 700;color: var(--text-primary);
-  display: flex;justify-content:space-between;align-items:center;
-}
-.budget-card-body {padding: 16px 20px}
-.budget-row {
-  display: flex;justify-content:space-between;align-items:center;
-  padding: 8px 0;
-  border-bottom: 1px dashed var(--border);
-  font-size: 14px;
-}
-.budget-row:last-child {border-bottom: none;font-weight: 700;padding-top: 12px;color: var(--text-primary)}
-.budget-label {color: var(--text-secondary)}
-.budget-value {font-weight: 600;color: var(--text-primary)}
+/* Budget */
+.budget-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:680px){.budget-grid{grid-template-columns:1fr}}
+.budget-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.budget-head{padding:13px 18px;background:var(--bg);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:600;color:var(--text)}
+.budget-body{padding:16px 18px}
+.budget-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dashed var(--border);font-size:13px}
+.budget-row:last-child{border-bottom:none;font-weight:600;padding-top:12px;margin-top:4px;padding-bottom:0}
+.budget-label{color:var(--text-2)}
+.budget-value{font-weight:500;color:var(--text)}
+.risk-card{background:var(--danger-dim);border:1px solid rgba(220,38,38,0.15);border-radius:var(--r-lg);padding:18px 20px;display:flex;gap:14px;margin-top:16px}
+.risk-icon-wrap{width:36px;height:36px;background:rgba(220,38,38,0.1);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.risk-title{font-size:14px;font-weight:600;color:#991B1B;margin-bottom:6px}
+.risk-body{font-size:13px;color:#7F1D1D;line-height:1.65}
+.option-label{font-family:var(--mono);font-size:10px;font-weight:500;color:var(--text-3);text-transform:uppercase;letter-spacing:0.8px;margin:14px 0 8px}
+.option-label:first-child{margin-top:0}
+.rec-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;color:#15803D;background:#F0FDF4;border:1px solid #BBF7D0;padding:2px 8px;border-radius:99px;font-family:var(--mono)}
 
-.risk-box {
-  background: #FEF2F2;
-  border: 1px solid #FECACA;
-  border-radius: 12px;
-  padding: 20px;
-  display: flex;gap: 14px;
-}
-.risk-icon {font-size: 24px;flex-shrink:0}
-.risk-title {font-size: 15px;font-weight: 700;color: #991B1B;margin-bottom: 8px}
-.risk-body {font-size: 14px;color: #7F1D1D;line-height: 22px}
-.risk-fix {
-  display: inline-flex;align-items:center;gap: 6px;
-  margin-top: 10px;
-  background: #991B1B;
-  color: var(--white);
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-size: 12px;font-weight: 600;
-  text-decoration: none;
-}
-
-/* ── Timeline ── */
-.timeline {position: relative;padding-left: 28px}
-.timeline::before {
-  content:'';position:absolute;left:9px;top:8px;bottom:8px;
-  width:2px;background: var(--border);
-}
-.tl-item {position:relative;margin-bottom:28px}
+/* Timeline */
+.card-muted{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px}
+.timeline{position:relative;padding-left:32px}
+.timeline::before{content:'';position:absolute;left:10px;top:10px;bottom:10px;width:1px;background:var(--border)}
+.tl-item{position:relative;margin-bottom:28px}
 .tl-item:last-child{margin-bottom:0}
-.tl-dot {
-  position:absolute;left:-28px;top:4px;
-  width:18px;height:18px;border-radius:50%;
-  background: var(--white);border: 2px solid var(--primary);
-  display:flex;align-items:center;justify-content:center;
-}
-.tl-dot-inner {width:8px;height:8px;border-radius:50%;background:var(--primary)}
-.tl-date {font-size: 12px;font-weight: 600;color: var(--blue);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
-.tl-title {font-size: 15px;font-weight: 700;color: var(--text-primary);margin-bottom:4px}
-.tl-body {font-size: 14px;color: var(--text-secondary);line-height:22px}
+.tl-dot{position:absolute;left:-32px;top:5px;width:20px;height:20px;border-radius:50%;background:var(--white);border:2px solid var(--amber);display:flex;align-items:center;justify-content:center}
+.tl-dot-inner{width:8px;height:8px;border-radius:50%;background:var(--amber)}
+.tl-dot.blue{border-color:var(--blue)}
+.tl-dot.blue .tl-dot-inner{background:var(--blue)}
+.tl-date{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--blue);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:5px}
+.tl-title{font-size:15px;font-weight:600;color:var(--text);margin-bottom:5px}
+.tl-body{font-size:13px;color:var(--text-2);line-height:1.65}
+.tl-milestone{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--blue);background:var(--blue-dim);border:1px solid rgba(43,79,191,0.15);padding:4px 12px;border-radius:99px;margin-top:8px;font-family:var(--mono)}
 
-/* ── Footer ── */
-.footer {
-  background: var(--navy);
-  color: var(--white);
-  padding: 40px 24px 28px;
-}
-.footer-inner {max-width:1200px;margin:0 auto}
-.footer-top {
-  display: flex;justify-content:space-between;align-items:flex-start;
-  gap: 24px;flex-wrap:wrap;
-  padding-bottom: 24px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  margin-bottom: 20px;
-}
-.footer-brand {font-size: 18px;font-weight: 800;color: var(--white)}
-.footer-brand span {color: var(--primary)}
-.footer-meta {font-size: 13px;color: rgba(255,255,255,0.4);margin-top:4px}
-.footer-tags {display:flex;gap:8px;flex-wrap:wrap}
-.footer-tag {
-  padding: 4px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.12);
-  font-size: 11px;font-weight: 500;color: rgba(255,255,255,0.5);
-}
-.footer-bottom {font-size: 13px;color: rgba(255,255,255,0.3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+/* Divider */
+.divider{border:none;border-top:1px solid var(--border);margin:48px 0}
 
-/* ── Divider ── */
-hr.divider {border:none;border-top:1px solid var(--border);margin: 40px 0}
+/* Footer */
+.footer{background:var(--navy);padding:36px 28px 28px}
+.footer-inner{max-width:1140px;margin:0 auto}
+.footer-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:16px}
+.footer-brand{font-size:16px;font-weight:700;color:var(--white)}
+.footer-brand em{font-style:normal;color:var(--amber)}
+.footer-meta{font-size:12px;color:rgba(255,255,255,0.3);margin-top:4px}
+.footer-tags{display:flex;gap:8px;flex-wrap:wrap}
+.footer-tag{padding:3px 10px;border-radius:99px;border:1px solid rgba(255,255,255,0.08);font-size:10px;font-weight:500;color:rgba(255,255,255,0.35);font-family:var(--mono);letter-spacing:0.3px}
+.footer-bottom{font-size:12px;color:rgba(255,255,255,0.25);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-family:var(--mono)}
 
-/* ── Responsive ── */
-@media(max-width:768px){
-  .hero h1{font-size:28px;line-height:38px}
-  .guide-grid{grid-template-columns:1fr}
-  .kpi-grid{grid-template-columns:1fr 1fr}
-  .hero-divider{display:none}
+@media(max-width:640px){
+  .hero{padding:40px 20px 36px}
+  .hero h1{font-size:26px}
+  .container{padding:0 20px}
 }
-@media(max-width:480px){
-  .kpi-grid{grid-template-columns:1fr}
-  .measure-table{font-size:13px}
-  .measure-table th,.measure-table td{padding:9px 10px}
-}
+.tc-query-text strong{color:var(--navy);font-family:var(--mono);font-size:11px;letter-spacing:0.3px;margin-right:2px}
 </style>
 </head>
 <body>
 
-<!-- ── Header ── -->
 <header class="header">
-  <a href="#" class="header-logo">
+  <a href="#" class="logo">
     <div class="logo-mark">CYO</div>
-    MCP Testing Plan
+    <span class="logo-text">MCP Testing Plan</span>
   </a>
-  <span class="header-badge">W4 · Tháng 5 / 2026</span>
+  <div class="header-right">
+    <span class="header-pill">W1/T6 · 02–06/06/2026</span>
+    <span class="header-status"><span class="status-dot"></span>Upcoming</span>
+  </div>
 </header>
 
-<!-- ── Hero ── -->
 <section class="hero">
+  <div class="hero-grid-overlay"></div>
+  <div class="hero-glow"></div>
   <div class="hero-inner">
-    <div class="hero-tag">
-      <span class="hero-dot"></span>
-      Sprint W4 — MCP Pilot Testing
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-line"></span>
+      Sprint W1 Tháng 6 — MCP Pilot Testing
+      <span class="hero-eyebrow-line"></span>
     </div>
-    <h1>Kế hoạch Testing <span>MCP</span><br>Tuần W4</h1>
-    <p>Hướng dẫn cài đặt, KPI đo lường và dự trù kinh phí cho giai đoạn pilot CYO — Claude + BigQuery qua MCP Protocol.</p>
-    <div class="hero-meta">
-      <div class="hero-meta-item">📅 <strong>Tuần W4</strong> · 04 – 08/05/2026</div>
-      <div class="hero-divider"></div>
-      <div class="hero-meta-item">👥 <strong>Team MKT + BI + Omega</strong></div>
-      <div class="hero-divider"></div>
-      <div class="hero-meta-item">🎯 <strong>MVP Draft</strong> → 30/05/2026</div>
+    <h1>Kế hoạch Testing <em>MCP</em><br>W1/T6 · CYO Platform</h1>
+    <p class="hero-sub">Hướng dẫn cài đặt, Scorecard KPI đo lường và Test Cases insight thực chiến — Claude + BigQuery qua MCP Protocol.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-val">02 – 06/06/2026</div>
+        <div class="hero-stat-lbl">Thời gian Sprint (1 tuần)</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">CRM · CX · MKT Lead</div>
+        <div class="hero-stat-lbl">Participants</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">MVP Draft</div>
+        <div class="hero-stat-lbl">Milestone 30/06/2026</div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ── Drive Banner ── -->
-<div class="container">
-  <div style="background:#EFF6FF;border:1.5px solid #BFDBFE;border-radius:10px;padding:14px 20px;margin-top:24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
-    <span style="font-size:22px;flex-shrink:0">📁</span>
-    <div style="flex:1;min-width:200px">
-      <div style="font-size:13px;font-weight:700;color:#1E40AF;margin-bottom:3px">Tài liệu chính — CYO MCP Skills + Config</div>
-      <div style="font-size:13px;color:#3B82F6;line-height:20px">Toàn bộ file Skill (.zip), JSON config và hướng dẫn kỹ thuật. IT và MKT lấy file từ đây.</div>
+<div class="drive-banner">
+  <div class="drive-inner">
+    <div class="drive-icon">📁</div>
+    <div class="drive-text">
+      <div class="drive-title">Tài liệu chính — CYO MCP Skills + Config</div>
+      <div class="drive-sub">Toàn bộ file Skill (.zip), JSON config và hướng dẫn kỹ thuật. IT và MKT lấy file từ đây.</div>
     </div>
-    <a href="https://drive.google.com/drive/u/4/folders/1jhCvG1mVuzPg4YYopvKeb_dVu3QMUOyd" target="_blank" style="flex-shrink:0;background:#1D4ED8;color:#fff;font-size:13px;font-weight:700;padding:9px 18px;border-radius:8px;text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;">🔗 Mở Google Drive</a>
+    <a href="https://drive.google.com/drive/u/4/folders/1jhCvG1mVuzPg4YYopvKeb_dVu3QMUOyd" target="_blank" class="drive-btn">🔗 Mở Google Drive</a>
   </div>
 </div>
 
-<!-- ── Main ── -->
 <main class="main">
 <div class="container">
 
-  <!-- SECTION 1: Setup Guideline -->
+  <!-- SECTION 1: Setup -->
   <section class="section">
     <div class="section-header">
-      <div class="section-number">1</div>
+      <div class="section-num">01</div>
       <div>
         <div class="section-title">Guideline Cài Đặt</div>
-        <div class="section-desc">Hướng dẫn step-by-step cho team thực hiện</div>
+        <div class="section-sub">Hướng dẫn step-by-step — thực hiện đúng thứ tự</div>
       </div>
     </div>
 
-    <!-- Prerequisite banner -->
-    <div style="background:var(--bg-light);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:flex-start;gap:12px;">
-      <span style="font-size:18px;flex-shrink:0">📋</span>
+    <div class="prereq">
+      <div class="prereq-icon">📋</div>
       <div>
-        <div style="font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:4px">Thứ tự thực hiện đúng: Node.js trước → MCP Config → Skill</div>
-        <div style="font-size:13px;color:var(--text-secondary);line-height:20px">Phải cài Node.js xong trước mới chạy được MCP server. Sau khi MCP hoạt động mới cần setup Skill trong Claude.</div>
+        <div class="prereq-title">Thứ tự bắt buộc: Node.js → MCP Config → Skill</div>
+        <div class="prereq-body">Phải cài Node.js hoàn tất trước mới chạy được MCP server. Sau khi MCP hoạt động mới setup Skill trong Claude.</div>
       </div>
     </div>
 
-    <div class="guide-grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
-
-      <!-- Card 1: Node.js (làm trước) -->
+    <div class="guide-grid">
       <div class="guide-card">
-        <div class="guide-card-header">
-          <div class="guide-card-icon">🟢</div>
+        <div class="guide-head">
+          <div class="guide-head-icon">🟢</div>
           <div>
-            <h3>Bước 1 — Cài Node.js</h3>
-            <p>Runtime môi trường · Làm trước tiên</p>
+            <div class="guide-head-title">Bước 1 — Cài Node.js</div>
+            <div class="guide-head-sub">Runtime môi trường · Làm trước tiên</div>
           </div>
         </div>
-        <div class="guide-card-body">
+        <div class="guide-body">
           <ul class="step-list">
             <li class="step-item">
               <div class="step-num">1</div>
-              <div class="step-content">
-                <div class="step-text">Vào link bên dưới, tải file <strong>.msi</strong> (Windows) hoặc <strong>.pkg</strong> (Mac)</div>
-                <div class="step-note"><a href="https://nodejs.org/en/download" target="_blank" style="color:var(--blue);font-weight:600;font-size:12px;text-decoration:underline">→ nodejs.org/en/download</a> &nbsp;· Chọn mục <strong>LTS</strong></div>
-              </div>
+              <div><div class="step-text">Tải file <strong>.msi</strong> (Windows) hoặc <strong>.pkg</strong> (Mac)</div><div class="step-note"><a href="https://nodejs.org/en/download" target="_blank">→ nodejs.org/en/download</a> · Chọn <strong>LTS</strong></div></div>
             </li>
             <li class="step-item">
               <div class="step-num">2</div>
-              <div class="step-content">
-                <div class="step-text">Mở file vừa tải, nhấn <strong>Next</strong> liên tục đến khi xong</div>
-                <div class="step-note">Không cần thay đổi gì — giữ mọi tùy chọn mặc định</div>
-              </div>
+              <div><div class="step-text">Mở file vừa tải, nhấn <strong>Next</strong> liên tục đến khi xong</div><div class="step-note">Giữ mọi tùy chọn mặc định</div></div>
             </li>
             <li class="step-item">
               <div class="step-num">3</div>
-              <div class="step-content">
-                <div class="step-text">Báo IT biết đã cài xong — IT sẽ hỗ trợ các bước tiếp theo</div>
-                <div class="step-note">IT sẽ setup MCP server và kết nối với Claude Desktop cho bạn</div>
-              </div>
+              <div><div class="step-text">Báo IT biết đã cài xong</div><div class="step-note">IT sẽ setup MCP server và kết nối Claude Desktop cho bạn</div></div>
             </li>
           </ul>
         </div>
       </div>
 
-      <!-- Card 2: MCP Config trong Claude Desktop -->
       <div class="guide-card">
-        <div class="guide-card-header">
-          <div class="guide-card-icon">⚙️</div>
+        <div class="guide-head">
+          <div class="guide-head-icon">⚙️</div>
           <div>
-            <h3>Bước 2 — Kết nối MCP vào Claude Desktop</h3>
-            <p>Edit config JSON · Sau khi Node.js chạy xong</p>
+            <div class="guide-head-title">Bước 2 — Kết nối MCP vào Claude Desktop</div>
+            <div class="guide-head-sub">Edit config JSON · Sau khi Node.js xong</div>
           </div>
         </div>
-        <div class="guide-card-body">
+        <div class="guide-body">
           <ul class="step-list">
             <li class="step-item">
               <div class="step-num">1</div>
-              <div class="step-content">
-                <div class="step-text">Mở Claude Desktop → nhấn vào tên mình (góc trên trái) → <strong>Settings</strong></div>
-                <div class="step-note">Cần dùng Claude Desktop app (tải tại claude.ai/download), không phải browser</div>
-              </div>
+              <div><div class="step-text">Mở Claude Desktop → nhấn tên mình → <strong>Settings → Developer → Edit Config</strong></div><div class="step-note">Dùng Claude Desktop app (claude.ai/download), không phải browser</div></div>
             </li>
             <li class="step-item">
               <div class="step-num">2</div>
-              <div class="step-content">
-                <div class="step-text">Vào tab <strong>Developer</strong> → nhấn <strong>Edit Config</strong></div>
-                <div class="step-note">File config tự động mở bằng Notepad / TextEdit — đây là file JSON thuần text</div>
+              <div>
+                <div class="step-text">Paste JSON config bên dưới (thay thế toàn bộ nội dung cũ)</div>
+                <div class="code-block">{<br>&nbsp;&nbsp;<span class="key">"mcpServers"</span>: {<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"cyo-cdp"</span>: {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"command"</span>: <span class="val">"node"</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"args"</span>: [<span class="val">"/path/to/cyo-mcp/index.js"</span>],<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="key">"env"</span>: { <span class="key">"BQ_PROJECT_ID"</span>: <span class="val">"yody-prod"</span> }<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;}<br>}</div>
+                <div class="step-note" style="margin-top:6px">⚠️ Thay <code style="font-family:monospace;font-size:11px">/path/to/</code> bằng đường dẫn thực tế trên máy</div>
               </div>
             </li>
             <li class="step-item">
               <div class="step-num">3</div>
-              <div class="step-content">
-                <div class="step-text">Copy đoạn JSON bên dưới, paste vào file (thay thế toàn bộ nội dung cũ nếu có)</div>
-                <div class="code-block" style="font-size:11px;line-height:18px">{<br>&nbsp;&nbsp;<span class="cmd">"mcpServers"</span>: {<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmd">"cyo-cdp"</span>: {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmd">"command"</span>: <span style="color:#86efac">"node"</span>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmd">"args"</span>: [<span style="color:#86efac">"/path/to/cyo-mcp-server/index.js"</span>],<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmd">"env"</span>: {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmd">"BQ_PROJECT_ID"</span>: <span style="color:#86efac">"yody-prod"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;}<br>}</div>
-                <div class="step-note" style="margin-top:6px">⚠️ Thay <code style="font-family:monospace;font-size:11px">/path/to/</code> bằng đường dẫn thực tế trên máy của bạn đến folder repo vừa clone ở Bước 1</div>
-              </div>
-            </li>
-            <li class="step-item">
-              <div class="step-num">4</div>
-              <div class="step-content">
-                <div class="step-text">Lưu file → <strong>Quit hoàn toàn</strong> Claude Desktop rồi mở lại</div>
-                <div class="step-note">Phải quit hoàn toàn (Cmd+Q / Alt+F4), không chỉ đóng cửa sổ — Claude Desktop cần restart để load config mới</div>
-              </div>
-            </li>
-            <li class="step-item">
-              <div class="step-num">5</div>
-              <div class="step-content">
-                <div class="step-text">Mở lại Claude Desktop → kiểm tra icon 🔌 (MCP connected) xuất hiện trong chat</div>
-                <div class="step-note">Gõ thử: <em>"Chạy health check MCP server"</em> — Claude gọi được tool là thành công ✓</div>
-              </div>
+              <div><div class="step-text">Lưu file → <strong>Quit hoàn toàn</strong> Claude Desktop (Cmd+Q / Alt+F4) rồi mở lại</div><div class="step-note">Gõ thử: <em>"Chạy health check MCP server"</em> — Claude gọi được tool là thành công ✓</div></div>
             </li>
           </ul>
         </div>
       </div>
 
-      <!-- Card 3: Cài Skill -->
       <div class="guide-card">
-        <div class="guide-card-header" style="background:linear-gradient(135deg,#101827,#1a2d4a)">
-          <div class="guide-card-icon" style="background:rgba(35,63,157,0.3);border-color:rgba(35,63,157,0.5)">✨</div>
+        <div class="guide-head" style="background:linear-gradient(135deg,#0D1524,#1a2d47)">
+          <div class="guide-head-icon" style="background:rgba(43,79,191,0.25);border-color:rgba(43,79,191,0.35)">✨</div>
           <div>
-            <h3>Bước 3 — Cài Skill trong Claude</h3>
-            <p>Custom instructions · Tối ưu output cho CYO context</p>
+            <div class="guide-head-title">Bước 3 — Cài Skill trong Claude</div>
+            <div class="guide-head-sub">Custom instructions · Tối ưu output CYO context</div>
           </div>
         </div>
-        <div class="guide-card-body">
-          <div style="background:var(--bg-light);border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:13px;color:var(--text-secondary);line-height:20px">
-            <strong style="color:var(--text-primary)">Skill là gì?</strong> Là bộ hướng dẫn giúp Claude hiểu đúng context CYO ngay từ đầu — IT chuẩn bị sẵn file <code style="font-family:monospace;background:#E5E7EB;padding:1px 5px;border-radius:3px">.zip</code>, MKT chỉ cần import vào là dùng được.
-          </div>
+        <div class="guide-body">
+          <div class="skill-info"><strong style="color:var(--text)">Skill là gì?</strong> Bộ hướng dẫn giúp Claude hiểu đúng context YODY ngay từ đầu — IT chuẩn bị sẵn file <code style="font-family:monospace;background:#E5E7EB;padding:1px 4px;border-radius:3px">.zip</code>, MKT chỉ cần import.</div>
           <ul class="step-list">
-            <li class="step-item">
-              <div class="step-num">1</div>
-              <div class="step-content">
-                <div class="step-text">Nhận file <strong>CYO-skill.zip</strong> từ IT (gửi qua Slack / Drive)</div>
-                <div class="step-note">Lưu file về máy, không cần giải nén</div>
-              </div>
-            </li>
-            <li class="step-item">
-              <div class="step-num">2</div>
-              <div class="step-content">
-                <div class="step-text">Mở Claude Desktop → vào <strong>Settings</strong></div>
-              </div>
-            </li>
-            <li class="step-item">
-              <div class="step-num">3</div>
-              <div class="step-content">
-                <div class="step-text">Chọn mục <strong>Connectors</strong> → nhấn <strong>Customize</strong></div>
-              </div>
-            </li>
-            <li class="step-item">
-              <div class="step-num">4</div>
-              <div class="step-content">
-                <div class="step-text">Nhấn dấu <strong>(+)</strong> → chọn <strong>Add Skill</strong> → chọn file <strong>CYO-skill.zip</strong> vừa nhận</div>
-              </div>
-            </li>
-            <li class="step-item">
-              <div class="step-num">5</div>
-              <div class="step-content">
-                <div class="step-text">Skill xuất hiện trong danh sách → nhấn <strong>Enable</strong> là xong</div>
-                <div class="step-note">Thử ngay: <em>"Top sản phẩm bán chạy tháng 4?"</em> — nếu Claude trả lời được là thành công ✓</div>
-              </div>
-            </li>
+            <li class="step-item"><div class="step-num">1</div><div><div class="step-text">Nhận file <strong>CYO-skill.zip</strong> từ IT (Slack / Drive)</div><div class="step-note">Lưu về máy, không cần giải nén</div></div></li>
+            <li class="step-item"><div class="step-num">2</div><div><div class="step-text">Claude Desktop → <strong>Settings → Connectors → Customize</strong></div></div></li>
+            <li class="step-item"><div class="step-num">3</div><div><div class="step-text">Nhấn <strong>(+) → Add Skill</strong> → chọn file <strong>CYO-skill.zip</strong> → <strong>Enable</strong></div><div class="step-note">Thử: <em>"Segment nào đang churn cao nhất tuần này?"</em> — Claude trả lời được là thành công ✓</div></div></li>
           </ul>
         </div>
       </div>
-
     </div>
   </section>
 
   <hr class="divider">
 
-  <!-- SECTION 2: KPI -->
+  <!-- SECTION 2: KPI Scorecard -->
   <section class="section">
     <div class="section-header">
-      <div class="section-number">2</div>
+      <div class="section-num">02</div>
       <div>
-        <div class="section-title">KPI Đo Lường & Cách Đo</div>
-        <div class="section-desc">3 nhóm KPI chính — Qualitative, Performance, Cost</div>
+        <div class="section-title">KPI Scorecard W1/T6</div>
+        <div class="section-sub">Đo lường thực chiến 1 tuần — Feedback tự động qua MCP tool · Bao gồm Concurrency Load test cho 3 users đồng thời</div>
       </div>
     </div>
 
-    <div class="kpi-grid">
-      <div class="kpi-card">
-        <div class="kpi-label">Feedback MKT</div>
-        <div class="kpi-value">≥ 10 feedback</div>
-        <div class="kpi-target">Số lượng phản hồi có mô tả tối thiểu trong W4</div>
+    <div class="kpi-row">
+      <div class="kpi-card amber">
+        <div class="kpi-label">Quality Chat Rate</div>
+        <div class="kpi-value">≥ 20</div>
+        <div class="kpi-target">Quality chats/tuần từ 3 tài khoản</div>
       </div>
-      <div class="kpi-card" style="border-left-color: var(--blue)">
-        <div class="kpi-label">Query Latency</div>
-        <div class="kpi-value">&lt; 5s</div>
-        <div class="kpi-target">P95 end-to-end response time</div>
+      <div class="kpi-card blue">
+        <div class="kpi-label">Time to Insight</div>
+        <div class="kpi-value">&lt; 30s</div>
+        <div class="kpi-target">E2E · Query Latency + MCP Response</div>
       </div>
-      <div class="kpi-card" style="border-left-color: var(--success)">
-        <div class="kpi-label">MCP Response</div>
-        <div class="kpi-value">&lt; 5s</div>
-        <div class="kpi-target">Thời gian MCP trả data về Claude (P95)</div>
+      <div class="kpi-card green">
+        <div class="kpi-label">AI Accuracy</div>
+        <div class="kpi-value">100%</div>
+        <div class="kpi-target">Pass bộ Test Cases chuẩn của MKT</div>
       </div>
-      <div class="kpi-card" style="border-left-color: #7C3AED">
+      <div class="kpi-card purple">
         <div class="kpi-label">Token / Query</div>
         <div class="kpi-value">≤ 3K</div>
-        <div class="kpi-target">Token budget trung bình mỗi query</div>
+        <div class="kpi-target">Token budget trung bình/query</div>
+      </div>
+      <div class="kpi-card teal">
+        <div class="kpi-label">Claude Utilization</div>
+        <div class="kpi-value">3/3</div>
+        <div class="kpi-target">Tài khoản · ≥ 30 chats/tuần/acc</div>
+      </div>
+      <div class="kpi-card red">
+        <div class="kpi-label">Error Rate</div>
+        <div class="kpi-value">&lt; 5%</div>
+        <div class="kpi-target">MCP errors / tổng queries</div>
       </div>
     </div>
 
-    <div class="card">
-      <table class="measure-table">
+    <div class="score-wrap">
+      <table class="score-table">
         <thead>
           <tr>
-            <th style="width:22%">KPI</th>
-            <th style="width:12%">Loại</th>
-            <th style="width:26%">Công cụ đo</th>
+            <th style="width:18%">KPI</th>
+            <th style="width:10%">Loại</th>
+            <th style="width:15%">Target</th>
+            <th style="width:28%">Cách đo & Nguồn data</th>
             <th>Cách thực hiện</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>Feedback team MKT</strong></td>
-            <td><span class="badge badge-quant">Quant + Qual</span></td>
-            <td>Google Form / Notion / Slack thread</td>
-            <td>Đếm số lượng feedback có nội dung mô tả (không tính "OK" / 1 từ). Mỗi feedback cần ghi rõ: query đã hỏi gì, Claude trả lời ra sao, vấn đề gặp phải (nếu có). PO tổng hợp cuối tuần theo 2 cột: <strong>Số lượng</strong> + <strong>Nhóm vấn đề</strong> (data sai / chậm / khó hiểu / khác).</td>
+            <td><strong>Quality Chat Rate</strong></td>
+            <td><span class="badge badge-quant">Quant</span></td>
+            <td><span class="target-pill pass">≥ 20 chats/tuần</span></td>
+            <td><span class="badge badge-tool">MCP Tool: get_feedback_log</span></td>
+            <td>Feedback lưu trong <strong>Table cyo_feedback</strong> trên hệ thống. Claude tự gọi tool <code style="font-family:monospace;font-size:11px">get_feedback_log(week)</code> để pull log. "Quality chat" = query thực chiến + AI trả insight dùng được + không bị QualityCheck reject. Claude tự phân loại dựa trên confidence_score > 0.7.</td>
           </tr>
           <tr>
-            <td><strong>Query Latency (E2E)</strong></td>
+            <td><strong>Time to Insight (E2E)</strong></td>
             <td><span class="badge badge-perf">Perf</span></td>
-            <td>Stopwatch / Chrome DevTools</td>
-            <td>Bấm giờ từ lúc gửi câu hỏi → nhận response đầy đủ. Ghi vào sheet: timestamp, query type, duration (ms).</td>
+            <td><span class="target-pill pass">≤ 30s query đơn<br>≤ 30 phút full insight</span></td>
+            <td><span class="badge badge-tool">MCP Tool: get_perf_metrics</span></td>
+            <td>Log tự động trong MCP server: <code style="font-family:monospace;font-size:11px">console.time('e2e')</code> từ lúc nhận query → trả response. Tool <code style="font-family:monospace;font-size:11px">get_perf_metrics()</code> export P95 latency theo ngày. Gộp Query Latency (ES) + MCP Response Time.</td>
           </tr>
           <tr>
-            <td><strong>MCP Response Time</strong></td>
-            <td><span class="badge badge-perf">Perf</span></td>
-            <td>Server log / console.time()</td>
-            <td>Log thêm <code style="font-family:monospace;font-size:12px">console.time('mcp_query')</code> trong handler. Export log file cuối ngày.</td>
+            <td><strong>AI Response Accuracy</strong></td>
+            <td><span class="badge badge-qual">Qual</span></td>
+            <td><span class="target-pill gate">100% Test Cases MKT</span></td>
+            <td><span class="badge badge-tool">MCP Tool: run_accuracy_check</span></td>
+            <td>Bộ Test Cases chuẩn (xem Mục 03) được chạy daily bằng tool <code style="font-family:monospace;font-size:11px">run_accuracy_check()</code>. Cross-check AI output vs BigQuery SQL manual. Pass/fail per query, tổng hợp cuối tuần.</td>
+          </tr>
+          <tr>
+            <td><strong>Claude Utilization</strong></td>
+            <td><span class="badge badge-quant">Quant</span></td>
+            <td><span class="target-pill info">3/3 acc · ≥ 30/tuần</span></td>
+            <td><span class="badge badge-tool">MCP Tool: get_usage_summary</span></td>
+            <td>Tool <code style="font-family:monospace;font-size:11px">get_usage_summary(week)</code> pull chat count từ Table theo account_id. Dưới 30 chats/acc = cần investigate friction. Đây là proxy adoption thực chất.</td>
           </tr>
           <tr>
             <td><strong>Token tiêu tốn</strong></td>
             <td><span class="badge badge-cost">Cost</span></td>
-            <td>Anthropic Console → Usage</td>
-            <td>Vào console.anthropic.com → Usage tab → filter theo ngày. Ghi lại input tokens + output tokens mỗi ngày testing.</td>
-          </tr>
-          <tr>
-            <td><strong>Answer Accuracy</strong></td>
-            <td><span class="badge badge-qual">Qual</span></td>
-            <td>Manual spot-check vs BigQuery</td>
-            <td>Chọn ngẫu nhiên 5 queries/ngày, chạy query SQL thủ công trên BQ để verify số liệu AI trả về có đúng không.</td>
+            <td><span class="target-pill warn">≤ 3K tokens/query</span></td>
+            <td>Anthropic Console → Usage tab</td>
+            <td>Vào console.anthropic.com → filter theo ngày. Ghi input + output tokens mỗi ngày. Alert nếu vượt 3K/query trung bình.</td>
           </tr>
           <tr>
             <td><strong>Error Rate</strong></td>
             <td><span class="badge badge-quant">Quant</span></td>
-            <td>Server error log</td>
-            <td>Đếm số lần MCP trả error / tổng số queries. Target: &lt; 5% error rate trong W4.</td>
+            <td><span class="target-pill pass">&lt; 5%</span></td>
+            <td><span class="badge badge-tool">MCP Tool: get_error_log</span></td>
+            <td>Tool <code style="font-family:monospace;font-size:11px">get_error_log(week)</code> đếm số lần MCP trả error / tổng queries. Bất kỳ error nào > 5% → dừng testing, investigate ngay.</td>
           </tr>
         </tbody>
       </table>
@@ -750,91 +480,494 @@ hr.divider {border:none;border-top:1px solid var(--border);margin: 40px 0}
 
   <hr class="divider">
 
-  <!-- SECTION 3: Budget -->
+  <!-- SECTION 3: Test Cases -->
   <section class="section">
     <div class="section-header">
-      <div class="section-number">3</div>
+      <div class="section-num">03</div>
       <div>
-        <div class="section-title">Kinh Phí Dự Trù</div>
-        <div class="section-desc">Đề xuất điều chỉnh so với plan gốc</div>
+        <div class="section-title">Test Cases — Câu Hỏi Insight Thực Chiến</div>
+        <div class="section-sub">Chuỗi câu hỏi drill-down — Q1 mở đầu → Q2–Q5 đào sâu → Q6 ra action · Lấy từ nhu cầu thực tế CRM · CX · Marketing YODY</div>
       </div>
     </div>
 
-    <div class="budget-grid">
-      <div>
-        <div class="budget-card" style="margin-bottom:20px">
-          <div class="budget-card-head">
-            <span>❌ Plan Gốc (Cần Sửa)</span>
-            <span style="color:var(--danger);font-size:12px">Vi phạm ToS</span>
-          </div>
-          <div class="budget-card-body">
-            <div class="budget-row">
-              <span class="budget-label">1 Claude Pro shared</span>
-              <span class="budget-value">$20/tháng</span>
-            </div>
-            <div class="budget-row">
-              <span class="budget-label">6 người dùng chung</span>
-              <span class="budget-value" style="color:var(--danger)">⚠️ Không hợp lệ</span>
-            </div>
-            <div class="budget-row">
-              <span class="budget-label">Token cost (ước tính)</span>
-              <span class="budget-value">Không track được</span>
-            </div>
-            <div class="budget-row">
-              <span class="budget-label">Tổng</span>
-              <span class="budget-value">$20/tháng</span>
-            </div>
-          </div>
-        </div>
+    <div class="tc-grid">
 
-        <div class="risk-box">
-          <div class="risk-icon">🛑</div>
-          <div>
-            <div class="risk-title">Rủi ro nếu giữ plan gốc</div>
-            <div class="risk-body">Anthropic phát hiện shared login → suspend tài khoản → mất toàn bộ conversation history + gián đoạn testing. Không track được token cost per user → không thể scale budget khi go-live.</div>
+      <!-- TC-01 -->
+      <div class="tc-card">
+        <div class="tc-head">
+          <div class="tc-priority">P1</div>
+          <div class="tc-title">Churn & Retention — Rủi ro mất khách hàng</div>
+          <span class="tc-tag">CRM · Churn Rate · Reactive</span>
+        </div>
+        <div class="tc-body">
+          <div class="tc-queries">
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q1 —</strong> Segment nào đang có nguy cơ churn cao nhất tuần này? Cho tôi top 3 với số liệu cụ thể.</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: Top 3 segment + % KH Dormant tăng + so sánh tuần trước</div>
+                <span class="tc-kpi-ref">Churn Rate</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q2 —</strong> Trong segment churn cao nhất đó, họ đã ngừng mua từ bao lâu? Recency trung bình là bao nhiêu ngày? Họ từng mua sản phẩm nào nhiều nhất?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: Recency avg (ngày), top sản phẩm từng mua, AOV lịch sử của nhóm này</div>
+                <span class="tc-kpi-ref">Recency · Product</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q3 —</strong> Với đặc điểm đó, campaign win-back nào phù hợp nhất? Đề xuất kênh, nội dung và mã voucher tối ưu để tái kích hoạt tệp này tháng 6.</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: Kênh đề xuất (Zalo/SMS), template tin nhắn sử dụng biến {{first_name}} {{discount_value}}, SLA hành động</div>
+                <span class="tc-kpi-ref">Win-back Action</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q4 —</strong> Có bao nhiêu KH đã Reactive (tái kích hoạt) trong tháng 5? Tỷ lệ Reactive/Churn là bao nhiêu? Chiến dịch nào hiệu quả nhất?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: SL Reactive, ratio Reactive/Churn, top campaign trigger Reactive</div>
+                <span class="tc-kpi-ref">Reactive Rate</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q5 —</strong> Trong số KH Reactive tháng 5, sau 30 ngày có bao nhiêu % mua lại lần 2? AOV lần mua sau so với lần mua trước khi churn thay đổi thế nào?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: 30-day repeat rate sau Reactive, AOV trend before/after, LTV recovery signal</div>
+                <span class="tc-kpi-ref">Post-Reactive LTV</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q6 —</strong> Nếu giữ nguyên Churn Rate hiện tại, dự báo SL KH Active cuối tháng 6 sẽ là bao nhiêu? Cần Reactive bao nhiêu KH/tuần để giữ Active baseline ổn định?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: Dự báo Active EOMonth, số KH Reactive cần đạt/tuần, sensitivity analysis</div>
+                <span class="tc-kpi-ref">Forecast · Target</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div>
-        <div class="budget-card">
-          <div class="budget-card-head">
-            <span>✅ Plan Đề Xuất (2 Options)</span>
-            <span style="color:var(--success);font-size:12px">Compliant</span>
+      <!-- TC-02 -->
+      <div class="tc-card">
+        <div class="tc-head">
+          <div class="tc-priority">P1</div>
+          <div class="tc-title">RFM & Segment — Phân tích tệp khách hàng</div>
+          <span class="tc-tag">CRM · RFM · AOV · Cận VIP</span>
+        </div>
+        <div class="tc-body">
+          <div class="tc-queries">
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q1 —</strong> Cho tôi báo cáo RFM tuần này: số lượng KH theo từng nhóm (VIP Gold, Cận VIP, Customer, Shopper, Ngủ Đông) và so sánh với tuần trước.</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: Bảng RFM đầy đủ 5 nhóm, MoM %, highlight nhóm thay đổi nhiều nhất</div>
+                <span class="tc-kpi-ref">RFM Overview</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q2 —</strong> Nhóm nào trong RFM đang tăng mạnh nhất tuần này? Nguyên nhân tăng là do New Customer hay Reactive, hay cả hai?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: Nhóm tăng mạnh nhất + phân tách New vs Reactive vs Upgrade từ nhóm thấp hơn</div>
+                <span class="tc-kpi-ref">Growth Driver</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q3 —</strong> KH VIP Gold hiện có bao nhiêu? AOV trung bình, tỷ lệ đóng góp doanh thu và tần suất mua là bao nhiêu?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: SL ~8.000, AOV ≥ 996K, %DT contribution, avg frequency/tháng</div>
+                <span class="tc-kpi-ref">VIP Gold</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q4 —</strong> Tệp Cận VIP đang cách ngưỡng lên VIP bao xa? Phân nhóm theo khoảng cách: &lt;500K, 500K–1tr, 1tr–2tr. Nhóm nào nên ưu tiên kích hoạt nhất?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: SL KH theo 3 bracket, nhóm cao nhất ROI để push lên VIP</div>
+                <span class="tc-kpi-ref">Cận VIP Funnel</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q5 —</strong> Trong tháng 5, có bao nhiêu KH Upgrade lên hạng cao hơn? Bao nhiêu KH Downgrade xuống hạng thấp hơn? Tỷ lệ net upgrade là bao nhiêu?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: SL upgrade/downgrade, net upgrade %, tier migration matrix</div>
+                <span class="tc-kpi-ref">Tier Migration</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q6 —</strong> Với tệp Cận VIP gần ngưỡng nhất, đề xuất campaign nào để push họ lên VIP trong tháng 6? Nên dùng kênh gì, ưu đãi bao nhiêu và timing nào?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: Campaign brief — segment filter, kênh, voucher value, thời điểm đi tin, KPI target conversion</div>
+                <span class="tc-kpi-ref">Upgrade Action</span>
+              </div>
+            </div>
           </div>
-          <div class="budget-card-body">
-            <p style="font-size:13px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;text-transform:uppercase;letter-spacing:.4px">Option A — Claude Team (Ưu tiên)</p>
-            <div class="budget-row">
-              <span class="budget-label">Claude Team Plan</span>
-              <span class="budget-value">$30/seat/tháng</span>
-            </div>
-            <div class="budget-row">
-              <span class="budget-label">2 seats (PO + MKT Lead)</span>
-              <span class="budget-value">$60/tháng</span>
-            </div>
-            <div class="budget-row">
-              <span class="budget-label">Token overage buffer</span>
-              <span class="budget-value">$20/tháng</span>
-            </div>
-            <div class="budget-row">
-              <span class="budget-label">Tổng Option A</span>
-              <span class="budget-value">~$80/tháng</span>
-            </div>
+        </div>
+      </div>
 
-            <p style="font-size:13px;font-weight:700;color:var(--text-secondary);margin:16px 0 8px;text-transform:uppercase;letter-spacing:.4px">Option B — API Key (Khuyến nghị cho dev)</p>
-            <div class="budget-row">
-              <span class="budget-label">Anthropic API (pay-as-go)</span>
-              <span class="budget-value">~$0.003/1K tokens</span>
+      <!-- TC-03 -->
+      <div class="tc-card">
+        <div class="tc-head">
+          <div class="tc-priority">P1</div>
+          <div class="tc-title">Customer Active — Vòng đời khách hàng</div>
+          <span class="tc-tag">CRM · Active · New · Retention 90D</span>
+        </div>
+        <div class="tc-body">
+          <div class="tc-queries">
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q1 —</strong> Báo cáo KH Active toàn công ty tuần này: SL đầu kỳ, cuối kỳ, mới, churn, reactive. So với tuần trước?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: Bảng lifecycle đầy đủ 5 chỉ số + delta % tuần trước</div>
+                <span class="tc-kpi-ref">Active Lifecycle</span>
+              </div>
             </div>
-            <div class="budget-row">
-              <span class="budget-label">Budget cap W4 (est. 500K tokens)</span>
-              <span class="budget-value">~$15–$25</span>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q2 —</strong> Trong số KH Active cuối kỳ, tỷ lệ mua lần đầu (New) vs mua lại (Returning) là bao nhiêu? Kênh nào mang lại New Customer nhiều nhất tháng 5?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: % New vs Returning, top 3 acquisition channel, CAC ước tính theo kênh</div>
+                <span class="tc-kpi-ref">New vs Return</span>
+              </div>
             </div>
-            <div class="budget-row">
-              <span class="budget-label">Tổng Option B</span>
-              <span class="budget-value">~$25–$40/tháng</span>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q3 —</strong> New Customer tháng 5 chủ yếu mua sản phẩm gì? AOV lần đầu của họ là bao nhiêu? So với AOV trung bình toàn công ty?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: Top 3 sản phẩm first-purchase, AOV lần đầu vs avg, LTV signal</div>
+                <span class="tc-kpi-ref">First Purchase</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q4 —</strong> KH quay lại mua trong 90 ngày gần nhất có bao nhiêu? Tỷ lệ quay lại là bao nhiêu %? Nhóm segment nào có tỷ lệ quay lại cao nhất?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: SL KH 90D retention, %, top segment by retention rate</div>
+                <span class="tc-kpi-ref">Retention 90D</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q5 —</strong> New Customer tháng 4 — sau 30 ngày có bao nhiêu % quay lại mua lần 2? Nhóm sản phẩm nào có tỷ lệ repeat cao nhất ở lần mua thứ 2?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: 30-day cohort retention của New Customer T4, top product dẫn đến repeat purchase</div>
+                <span class="tc-kpi-ref">Cohort D30</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q6 —</strong> Dựa trên cohort trên, đề xuất onboarding message nào nên gửi cho New Customer trong 7 ngày đầu để tăng tỷ lệ mua lần 2 tháng 6?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: Timing gửi tin (D+3, D+7), kênh, nội dung gợi ý sản phẩm, KPI target D30 retention</div>
+                <span class="tc-kpi-ref">Onboarding Brief</span>
+              </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- TC-04 -->
+      <div class="tc-card">
+        <div class="tc-head">
+          <div class="tc-priority">P1</div>
+          <div class="tc-title">Loyalty & VIP — Chương trình tích điểm</div>
+          <span class="tc-tag">CX · Loyalty · Điểm tích lũy · VIP Revenue</span>
+        </div>
+        <div class="tc-body">
+          <div class="tc-queries">
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q1 —</strong> Tỷ lệ doanh thu từ nhóm KH VIP / doanh thu tổng tháng 5 là bao nhiêu? Breakdown theo hạng VIP S, G, R, D, Siêu VIP.</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: %DT per tier, SL KH per tier, AOV per tier</div>
+                <span class="tc-kpi-ref">VIP Revenue</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q2 —</strong> Hạng VIP nào đang có tỷ lệ Churn cao nhất tháng 5? Họ đã mua gì lần cuối và cách đây bao lâu?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: Churn rate per tier, last product, recency avg — xác định tier nguy hiểm nhất</div>
+                <span class="tc-kpi-ref">VIP Churn Risk</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q3 —</strong> Có bao nhiêu KH có điểm tích lũy sắp hết hạn trong 15 ngày tới? Tổng giá trị điểm sắp mất là bao nhiêu? Phân theo hạng VIP.</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: SL KH, tổng điểm (quy VNĐ), breakdown theo tier — ưu tiên tệp nào nhắc nhở trước</div>
+                <span class="tc-kpi-ref">Points Expiry</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q4 —</strong> Tỷ lệ đơn hàng sử dụng điểm tích lũy tháng 5 là bao nhiêu? So với tháng 4? Hạng VIP nào dùng điểm nhiều nhất?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: % đơn dùng điểm, MoM, top tier by points usage rate</div>
+                <span class="tc-kpi-ref">Points CVR</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q5 —</strong> KH dùng điểm tích lũy có AOV cao hơn hay thấp hơn KH không dùng điểm? Tần suất mua của 2 nhóm này khác nhau thế nào?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: AOV points-user vs non-points-user, purchase frequency comparison, LTV signal</div>
+                <span class="tc-kpi-ref">Points Impact</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q6 —</strong> Với tệp VIP có điểm sắp hết hạn, đề xuất campaign nhắc nhở và kích mua phù hợp nhất tháng 6. Nên gửi qua kênh nào và timing nào?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: Segment filter, kênh (Zalo ZNS ưu tiên), template nhắc điểm + upsell, D-15 / D-7 timing</div>
+                <span class="tc-kpi-ref">Points Campaign</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TC-05 -->
+      <div class="tc-card">
+        <div class="tc-head">
+          <div class="tc-priority">P1</div>
+          <div class="tc-title">Campaign Performance — Hiệu quả chiến dịch đi tin</div>
+          <span class="tc-tag">CRM · CVR · ROAS · Kênh</span>
+        </div>
+        <div class="tc-body">
+          <div class="tc-queries">
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q1 —</strong> Campaign sinh nhật tháng 5 có CVR và ROAS tổng như thế nào? Tổng doanh thu CDP từ chiến dịch này là bao nhiêu?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: CVR tổng, ROAS, DT CDP, số ngày trung bình từ tác động → mua</div>
+                <span class="tc-kpi-ref">CVR · ROAS</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q2 —</strong> Phân tách CVR và AOV của sinh nhật tháng 5 theo kênh: Zalo ZNS vs SMS. Kênh nào có chi phí/đơn thấp hơn?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: CVR theo kênh, AOV theo kênh, CP/đơn, kết luận kênh ưu tiên</div>
+                <span class="tc-kpi-ref">Channel Split</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q3 —</strong> Trong tệp sinh nhật T5, hạng VIP nào có CVR cao nhất? Hạng nào thấp nhất — có nên cắt khỏi tệp tháng 6 không?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: CVR breakdown theo VIP tier, ROI so sánh, recommendation cắt/giữ</div>
+                <span class="tc-kpi-ref">Tier CVR</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q4 —</strong> So sánh ROAS của 3 campaign có hiệu quả cao nhất tháng 4–5. Segment nào là động lực chính của từng campaign?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: Top 3 campaign ROAS ranking, segment breakdown per campaign</div>
+                <span class="tc-kpi-ref">Top Campaign</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q5 —</strong> Campaign win-back KH ngủ đông > 12 tháng tháng 4: có bao nhiêu KH chuyển đổi? Sau 30 ngày họ có mua lại không? Tỷ lệ chuyển thành KH Active bền vững?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: SL CVR, 30-day repeat, % trở thành Active &gt;1 tháng</div>
+                <span class="tc-kpi-ref">Win-back Quality</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q6 —</strong> Dựa trên dữ liệu trên, đề xuất lịch campaign tháng 6 cho tệp sinh nhật T6: nên đi kênh nào, template nào, timing nào và budget tối ưu?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: Campaign brief T6 — kênh, template {{biến}}, ngày đi tin, budget estimate, KPI target</div>
+                <span class="tc-kpi-ref">Campaign Brief</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TC-06 -->
+      <div class="tc-card">
+        <div class="tc-head">
+          <div class="tc-priority">P1</div>
+          <div class="tc-title">Sales & Unit Economics — Sức khỏe tài chính</div>
+          <span class="tc-tag">MKT Lead · AOV · %LNG · MoM · Chiết khấu</span>
+        </div>
+        <div class="tc-body">
+          <div class="tc-queries">
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q1 —</strong> Doanh thu thành công tháng 5 là bao nhiêu? So với tháng 4 tăng/giảm bao nhiêu %? Kênh nào đóng góp nhiều nhất?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: Net revenue, MoM %, breakdown theo kênh, top-line summary</div>
+                <span class="tc-kpi-ref">MoM Growth</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q2 —</strong> AOV tuần này theo từng tệp KH (VIP, Cận VIP, Customer, Shopper) là bao nhiêu? Tệp nào có AOV giảm mạnh nhất so với tuần trước?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: Bảng AOV theo 4 tệp, delta % tuần trước, highlight outlier đỏ</div>
+                <span class="tc-kpi-ref">AOV by Segment</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q3 —</strong> % chiết khấu trung bình tháng 5 là bao nhiêu? Tệp KH nào có % chiết khấu cao nhất? So với tháng 4 thay đổi thế nào?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: %CK trung bình, %CK per segment, MoM change — tệp nào đang "đốt tiền" nhất</div>
+                <span class="tc-kpi-ref">%CK Analysis</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q4 —</strong> Tệp có % chiết khấu cao nhất đó ảnh hưởng đến %LNG (Gross Margin) như thế nào? Nếu giảm CK 5% thì LNG cải thiện bao nhiêu?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: %LNG hiện tại, sensitivity: -5%CK → +X%LNG, breakeven analysis</div>
+                <span class="tc-kpi-ref">%LNG Impact</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q5 —</strong> Sản phẩm nào có UPT (Units Per Transaction) cao nhất tháng 5? Segment KH nào mua nhiều item nhất trong 1 đơn?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: Top 3 sản phẩm by UPT, segment có UPT cao nhất, cross-sell opportunity</div>
+                <span class="tc-kpi-ref">UPT · Basket Size</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q6 —</strong> Dựa trên dữ liệu trên, đề xuất 1 action cụ thể để tăng AOV tháng 6 mà không cần tăng thêm chiết khấu. Target AOV tháng 6 nên đặt ở mức nào?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: Action recommendation (upsell/bundle/min order), AOV target T6, kênh thực thi</div>
+                <span class="tc-kpi-ref">AOV Action</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TC-07 -->
+      <div class="tc-card">
+        <div class="tc-head">
+          <div class="tc-priority">P1</div>
+          <div class="tc-title">Cross-sell & Product Affinity — Gợi ý bán chéo</div>
+          <span class="tc-tag">CRM · Product Affinity · Birthday Segment</span>
+        </div>
+        <div class="tc-body">
+          <div class="tc-queries">
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q1 —</strong> Sản phẩm nào thường được mua kèm nhau nhất trong 1 đơn hàng tháng 5? Cho tôi top 5 cặp sản phẩm có affinity cao nhất.</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: Top 5 product pairs, % co-purchase rate, lift score</div>
+                <span class="tc-kpi-ref">Product Affinity</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q2 —</strong> KH đã mua Polo > 2 lần hiện có bao nhiêu người? Trong số đó, bao nhiêu % chưa từng mua quần? Đây là tệp cross-sell tiềm năng nhất không?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: SL KH Polo repeat, % chưa mua quần, confirm cross-sell opportunity size</div>
+                <span class="tc-kpi-ref">Polo Cross-sell</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q3 —</strong> Trong tệp KH mua Polo > 2 lần, AOV và tần suất mua của họ là bao nhiêu? Họ thuộc segment RFM nào chủ yếu?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: AOV, purchase freq/tháng, RFM tier breakdown — đánh giá value của tệp</div>
+                <span class="tc-kpi-ref">Segment Profile</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q4 —</strong> Tệp KH sinh nhật tháng 6 có bao nhiêu người? Phân theo hạng VIP và kênh mua cuối (Offline/Online). Loại trừ tệp nhân viên và không muốn làm phiền.</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: SL ~380K sau loại trừ, breakdown VIP tier + kênh, ready-to-send segment size</div>
+                <span class="tc-kpi-ref">Birthday T6</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q5 —</strong> Trong sinh nhật tháng 5 vừa rồi, campaign nào (Zalo ZNS hay SMS) có CVR cao hơn cho từng hạng VIP? Tệp nào nên ưu tiên đi Zalo, tệp nào đi SMS?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: CVR matrix theo tier × kênh, recommendation phân bổ kênh cho T6</div>
+                <span class="tc-kpi-ref">Channel Allocation</span>
+              </div>
+            </div>
+            <div class="tc-query">
+              <div class="tc-query-text"><strong>Q6 —</strong> Đề xuất campaign cross-sell cho tệp Polo-buyer tháng 6: nên giới thiệu sản phẩm gì, dùng biến cá nhân hóa nào, kênh gì và discount tối ưu là bao nhiêu để không ăn vào margin?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: Product recommendation, template với {{last_product}} {{discount_value}}, kênh Zalo ZNS, discount threshold không giảm %LNG</div>
+                <span class="tc-kpi-ref">Cross-sell Brief</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TC-08 -->
+      <div class="tc-card">
+        <div class="tc-head">
+          <div class="tc-priority p2">P2</div>
+          <div class="tc-title">CX & Trải nghiệm — CSAT / NPS / Retention</div>
+          <span class="tc-tag">CX · CSAT · NPS · Repeat Rate · Retention</span>
+        </div>
+        <div class="tc-body">
+          <div class="tc-queries">
+            <div class="tc-query p2">
+              <div class="tc-query-text"><strong>Q1 —</strong> Điểm CSAT và NPS tuần này là bao nhiêu? Xu hướng 4 tuần gần nhất thay đổi thế nào?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: CSAT %, NPS score, 4-week trend, so sánh với benchmark nội bộ</div>
+                <span class="tc-kpi-ref" style="background:var(--blue-dim);color:var(--blue)">CSAT · NPS</span>
+              </div>
+            </div>
+            <div class="tc-query p2">
+              <div class="tc-query-text"><strong>Q2 —</strong> Kênh nào đang có điểm CSAT thấp nhất? Nhóm KH nào (theo segment RFM) có tỷ lệ phản đối (Detractors NPS 0–6) cao nhất?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: CSAT breakdown theo kênh, % Detractors per segment — xác định điểm yếu cần xử lý</div>
+                <span class="tc-kpi-ref" style="background:var(--blue-dim);color:var(--blue)">CX Weak Point</span>
+              </div>
+            </div>
+            <div class="tc-query p2">
+              <div class="tc-query-text"><strong>Q3 —</strong> Retention Rate và Repeat Rate tháng 5 là bao nhiêu? So với tháng 4? Segment nào có Repeat Rate cao nhất và thấp nhất?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: Retention %, Repeat %, MoM, top/bottom segment by repeat rate</div>
+                <span class="tc-kpi-ref" style="background:var(--blue-dim);color:var(--blue)">Retention · Repeat</span>
+              </div>
+            </div>
+            <div class="tc-query p2">
+              <div class="tc-query-text"><strong>Q4 —</strong> KH có CSAT cao (hài lòng) có Repeat Rate và AOV cao hơn KH có CSAT thấp không? Mức độ tương quan giữa CSAT và LTV là bao nhiêu?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: CSAT-high vs CSAT-low comparison: Repeat Rate, AOV, LTV — business case cho việc cải thiện CX</div>
+                <span class="tc-kpi-ref" style="background:var(--blue-dim);color:var(--blue)">CSAT ↔ LTV</span>
+              </div>
+            </div>
+            <div class="tc-query p2">
+              <div class="tc-query-text"><strong>Q5 —</strong> KH có điểm NPS thấp (Detractors) trong tháng 4, đến tháng 5 có bao nhiêu % đã churn? Số này cao hơn nhóm Promoters bao nhiêu lần?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: Churn rate Detractors vs Promoters, multiplier — quantify tác động của NPS đến Churn</div>
+                <span class="tc-kpi-ref" style="background:var(--blue-dim);color:var(--blue)">NPS → Churn</span>
+              </div>
+            </div>
+            <div class="tc-query p2">
+              <div class="tc-query-text"><strong>Q6 —</strong> Với nhóm Detractors hiện tại, đề xuất action recovery nào phù hợp nhất? Nên ưu tiên tiếp cận qua kênh nào và message gì để chuyển họ thành Passives?</div>
+              <div class="tc-query-meta">
+                <div class="tc-expected">Kỳ vọng: Recovery action (ưu đãi đặc biệt, gọi điện, survey follow-up), kênh, timeline, KPI target NPS improvement</div>
+                <span class="tc-kpi-ref" style="background:var(--blue-dim);color:var(--blue)">CX Recovery</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- SECTION 4: Budget -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <div>
+        <div class="section-title">Kinh Phí Dự Trù — Phase Testing</div>
+        <div class="section-sub">3 × Claude Pro · 1 tháng · Tỷ giá 26.357 VNĐ/USD · Bao gồm VAT 10%</div>
+      </div>
+    </div>
+
+    <div class="budget-card" style="max-width:540px">
+      <div class="budget-head">
+        <span>3 × Claude Pro — Tuân thủ ToS Anthropic</span>
+        <span class="rec-badge">✓ Compliant</span>
+      </div>
+      <div class="budget-body">
+        <div class="budget-row">
+          <span class="budget-label">3 tài khoản Claude Pro</span>
+          <span class="budget-value">3 × $20 = $60</span>
+        </div>
+        <div class="budget-row">
+          <span class="budget-label">Quy VNĐ (× 26.357)</span>
+          <span class="budget-value">1.581.420 ₫</span>
+        </div>
+        <div class="budget-row">
+          <span class="budget-label">VAT 10%</span>
+          <span class="budget-value">+ 158.142 ₫</span>
+        </div>
+        <div class="budget-row">
+          <span class="budget-label" style="color:var(--text);font-weight:600">Tổng thanh toán</span>
+          <span class="budget-value" style="font-size:16px;color:var(--navy)">1.739.562 ₫ / tháng</span>
         </div>
       </div>
     </div>
@@ -842,40 +975,47 @@ hr.divider {border:none;border-top:1px solid var(--border);margin: 40px 0}
 
   <hr class="divider">
 
-  <!-- SECTION 4: Timeline -->
+  <!-- SECTION 5: Timeline -->
   <section class="section">
     <div class="section-header">
-      <div class="section-number">4</div>
+      <div class="section-num">05</div>
       <div>
-        <div class="section-title">Timeline W4 Testing</div>
-        <div class="section-desc">Gắn với lộ trình tổng thể dự án CYO</div>
+        <div class="section-title">Timeline W1/T6 Testing</div>
+        <div class="section-sub">1 tuần · 02–06/06/2026 · Gắn với milestone Go-Live 30/06</div>
       </div>
     </div>
     <div class="card-muted">
       <div class="timeline">
         <div class="tl-item">
           <div class="tl-dot"><div class="tl-dot-inner"></div></div>
-          <div class="tl-date">04–05/05 · Thứ 2–3</div>
+          <div class="tl-date">02/06 · Thứ 2</div>
           <div class="tl-title">Setup & Smoke Test</div>
-          <div class="tl-body">Team Omega hoàn thiện khung MCP. Dev cài Node.js + kết nối BQ. PO + MKT cài Claude + thêm MCP endpoint. Chạy 5 test queries đơn giản.</div>
+          <div class="tl-body">Team Omega verify MCP server live. 3 acc Claude Pro cài xong Skill. Chạy 5 smoke queries đơn giản — health check toàn hệ thống. Confirm Table cyo_feedback nhận log đúng.</div>
         </div>
         <div class="tl-item">
           <div class="tl-dot"><div class="tl-dot-inner"></div></div>
-          <div class="tl-date">06–07/05 · Thứ 4–5</div>
-          <div class="tl-title">Structured Testing</div>
-          <div class="tl-body">MKT Exec thực hiện 20 queries theo danh sách use cases ưu tiên (UC1: demographic insights, UC5: product flow). Ghi log latency + tokens. Spot-check accuracy vs BigQuery.</div>
+          <div class="tl-date">03–04/06 · Thứ 3–4</div>
+          <div class="tl-title">Structured Testing — P1 Test Cases</div>
+          <div class="tl-body">CRM + CX chạy toàn bộ Test Cases P1 (TC-01 → TC-07). Ghi log Time to Insight + tokens. Tool <code style="font-family:monospace;font-size:11px">run_accuracy_check()</code> chạy song song để cross-verify với BigQuery.</div>
         </div>
         <div class="tl-item">
           <div class="tl-dot"><div class="tl-dot-inner"></div></div>
-          <div class="tl-date">08/05 · Thứ 6</div>
-          <div class="tl-title">Retrospective & Report</div>
-          <div class="tl-body">Thu thập feedback form từ MKT. Tổng hợp KPI sheet. PO viết W4 Testing Report: pass/fail theo từng KPI, blockers, recommendations cho W5.</div>
+          <div class="tl-date">05/06 · Thứ 5</div>
+          <div class="tl-title">Bonus Testing — P2 Test Cases + Edge Cases</div>
+          <div class="tl-body">Chạy TC-08 (CSAT/NPS/Retention). Test edge cases: query phức tạp nhiều segment, query có join nhiều bảng, câu hỏi follow-up drill-down. Ghi lại hallucination nếu có.</div>
         </div>
         <div class="tl-item">
-          <div class="tl-dot" style="border-color:var(--blue)"><div class="tl-dot-inner" style="background:var(--blue)"></div></div>
-          <div class="tl-date">30/05 · Milestone</div>
-          <div class="tl-title">🎯 MVP Draft Launch</div>
-          <div class="tl-body">Dựa trên kết quả W4, team BI hoàn thiện dataset chuẩn hóa. MVP có khả năng trả lời câu hỏi cơ bản về nhân khẩu học và hành vi mua sắm.</div>
+          <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+          <div class="tl-date">06/06 · Thứ 6</div>
+          <div class="tl-title">Retrospective & W1 Report</div>
+          <div class="tl-body">Pull KPI Scorecard từ MCP tools. PO tổng hợp W1 Testing Report: pass/fail theo từng KPI, blockers, top 3 issues cần fix, recommendations cho W2.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot blue"><div class="tl-dot-inner"></div></div>
+          <div class="tl-date">30/06 · Milestone</div>
+          <div class="tl-title">Go-Live v1.0</div>
+          <div class="tl-body">Dựa trên kết quả W1/T6, team hoàn thiện pipeline + fix bugs. Go-Live với ≥ 5 active users, Segment Builder + Approval Workflow live, zero P0/P1.</div>
+          <div class="tl-milestone">🎯 BI AI v1.0 Go-Live</div>
         </div>
       </div>
     </div>
@@ -884,24 +1024,23 @@ hr.divider {border:none;border-top:1px solid var(--border);margin: 40px 0}
 </div>
 </main>
 
-<!-- ── Footer ── -->
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-top">
       <div>
-        <div class="footer-brand">CYO · <span>YODY</span></div>
+        <div class="footer-brand">CYO · <em>YODY</em></div>
         <div class="footer-meta">AI-native CDP Platform — Internal Document · Confidential</div>
       </div>
       <div class="footer-tags">
-        <span class="footer-tag">W4 Testing Plan</span>
+        <span class="footer-tag">W1/T6 Testing Plan</span>
         <span class="footer-tag">MCP Protocol</span>
-        <span class="footer-tag">Phase 1 · Sprint 4</span>
+        <span class="footer-tag">Phase 1 · Sprint W1-T6</span>
         <span class="footer-tag">Owner: PO Lãm</span>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>CYO SRD v1.2 · Cập nhật 22/05/2026</span>
-      <span>Team: PO · BI (Anh Bình) · Omega (Anh Thắng) · MKT</span>
+      <span>CYO SRD v1.3 · Cập nhật 25/05/2026</span>
+      <span>Team: PO · BI (Anh Bình) · Omega (Anh Thắng) · CRM · CX · MKT</span>
     </div>
   </div>
 </footer>
